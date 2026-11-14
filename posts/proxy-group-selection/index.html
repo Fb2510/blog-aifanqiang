@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="anime">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>节点选“自动”还是手动？三种策略组怎么用 · 小六有点六</title>
+<meta name="description" content="客户端里的自动选择、故障转移和负载均衡分别做什么？用简单例子讲清差别，帮助你按网页、通话和固定出口的需求选择节点。">
+<meta name="keywords" content="节点自动选择,机场策略组,故障转移,Clash节点选择">
+<meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://aifanqiang.ink/posts/proxy-group-selection/">
+<meta property="og:title" content="节点选“自动”还是手动？三种策略组怎么用">
+<meta property="og:description" content="客户端里的自动选择、故障转移和负载均衡分别做什么？用简单例子讲清差别，帮助你按网页、通话和固定出口的需求选择节点。">
+<meta property="og:url" content="https://aifanqiang.ink/posts/proxy-group-selection/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小六有点六">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png"><meta property="og:image:alt" content="小六有点六">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="节点选“自动”还是手动？三种策略组怎么用">
+<meta name="twitter:description" content="客户端里的自动选择、故障转移和负载均衡分别做什么？用简单例子讲清差别，帮助你按网页、通话和固定出口的需求选择节点。">
+<meta name="twitter:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<meta name="author" content="小六"><meta property="article:published_time" content="2026-09-30T09:06:53&#43;08:00"><meta property="article:modified_time" content="2026-11-14T14:03:03&#43;08:00"><meta property="article:tag" content="新手入门"><meta property="article:tag" content="使用排障">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/posts/proxy-group-selection/#article","@type":"BlogPosting","author":{"@type":"Person","name":"小六"},"dateModified":"2026-11-14T14:03:03+08:00","datePublished":"2026-09-30T09:06:53+08:00","description":"客户端里的自动选择、故障转移和负载均衡分别做什么？用简单例子讲清差别，帮助你按网页、通话和固定出口的需求选择节点。","headline":"节点选“自动”还是手动？三种策略组怎么用","inLanguage":"zh-CN","mainEntityOfPage":{"@id":"https://aifanqiang.ink/posts/proxy-group-selection/","@type":"WebPage"},"url":"https://aifanqiang.ink/posts/proxy-group-selection/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/posts/proxy-group-selection/","name":"节点选“自动”还是手动？三种策略组怎么用","position":2}]}]}</script>
+
+<script>(()=>{let mode='system';try{const saved=localStorage.getItem('reader-theme');if(['system','light','dark'].includes(saved))mode=saved}catch{}const root=document.documentElement;root.dataset.colorMode=mode;root.classList.toggle('dark',mode==='dark'||(mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))})();</script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/style.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/advertisements.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/search.css"><script defer src="https://aifanqiang.ink/assets/theme/search.js"></script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/layouts.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/effects.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/skin.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/viewer.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/reader.css">
+<link rel="icon" href="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/artalk.css"><script defer src="https://aifanqiang.ink/assets/theme/artalk.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/theme.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/reader.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/viewer.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/image-viewer.js"></script>
+
+<script defer src="https://aifanqiang.ink/assets/theme/interactions.js"></script>
+
+<meta name="msvalidate.01" content="3D562902FFD6655EA5B649095B7D8365" />
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MF8TKHJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+
+<script defer src="https://aifanqiang.ink/assets/xblog/google-analytics.js" data-xblog-google-analytics="G-2MVRPZXCVH" data-site-hosts="aifanqiang.ink,www.aifanqiang.ink"></script></head>
+
+<body class="reader-page theme-anime article-page">
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="https://aifanqiang.ink/"><img src="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png" alt="" width="38" height="38"><span>小六有点六</span></a>
+<nav id="site-navigation" aria-label="站点导航"><a href="https://aifanqiang.ink/">首页</a></nav>
+<a class="search-toggle" href="https://aifanqiang.ink/search/" data-open-dialog="search-dialog" aria-haspopup="dialog" aria-controls="search-dialog" aria-label="搜索" title="搜索"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></a>
+<button id="theme-mode" class="theme-toggle theme-cycle" type="button" aria-label="明暗模式：跟随系统，点击切换为明亮" title="跟随系统 · 点击切换为明亮">
+<svg class="theme-icon-system" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+<svg class="theme-icon-moon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.5A8.5 8.5 0 0 1 8.5 3.8 8.5 8.5 0 1 0 20.2 15.5Z"/></svg>
+<svg class="theme-icon-sun" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
+<span id="theme-mode-status" class="visually-hidden" role="status" aria-live="polite"></span>
+<button id="menu-toggle" class="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="打开菜单" title="打开菜单">
+<svg class="menu-icon-open" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+<svg class="menu-icon-close" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>
+</button>
+</div>
+</header>
+
+<div class="page-viewport article-viewport"><div class="page-scroll article-scroll">
+<main id="main" tabindex="-1" class="anime-workspace theme-workspace theme-article">
+
+<nav class="breadcrumbs" aria-label="面包屑导航"><ol><li><a href="https://aifanqiang.ink/">小六有点六</a></li><li><span aria-current="page">节点选“自动”还是手动？三种策略组怎么用</span></li></ol></nav>
+
+
+<div class="anime-letter"><div class="letter-paper">
+<article data-pagefind-body>
+<header class="article-header">
+<div class="eyebrow" data-pagefind-ignore>
+手账正文</div>
+<h1 data-pagefind-meta="title">节点选“自动”还是手动？三种策略组怎么用</h1>
+<div class="metadata" data-pagefind-ignore><span>小六</span><time datetime="2026-09-30T09:06:53&#43;08:00">2026-09-30</time><span><span id="page-views">—</span> 次阅读</span></div>
+<div class="chips" data-pagefind-ignore><a href="https://aifanqiang.ink/categories/client-guides/">客户端教程</a></div>
+</header>
+<div class="prose"><p>客户端里一边是节点列表，一边又有“自动选择”“故障转移”“负载均衡”，看着很热闹。先别把它们都开一遍：这些选项是在帮你选出口，解决的问题各不相同。</p>
+<h2 id="heading">自动选择：按检查结果帮你挑</h2>
+<p>以 Mihomo 为例，自动选择会参考对指定网址的延迟测试。它不是在比较所有网站，也没有帮你把每个节点都下载测速一遍。</p>
+<p>因此，自动选中的节点不一定最适合你正在看的视频。有些配置还会避免为几毫秒的差距频繁切换，所以列表里出现更小的数字，却没马上换过去，不一定有问题。</p>
+<h2 id="heading-1">故障转移：主用不行，再用备用</h2>
+<p>如果你平时喜欢用 A，A 不能用时才想换 B，这种方式更容易理解。候选节点的先后顺序很重要，不能只看哪个延迟最低。</p>
+<p>不过，换到备用不代表已经进行中的下载和通话完全不会断。重要任务前，最好先单独确认备用节点能用。</p>
+<h2 id="heading-2">负载均衡：把不同连接分给不同节点</h2>
+<p>它不是把两条线路的速度加起来，给一个下载“翻倍加速”。不同分配方式会让连接落到不同出口，一个应用访问多个网站地址时，也可能使用多个出口。</p>
+<p>如果遇到反复登录、页面状态不稳定，可以先固定一个节点做对照，再看现象是否改变。</p>
+<h2 id="heading-3">不知道怎么选，就从手动开始</h2>
+<p>先找两三个实际能用的节点。日常浏览想省心，可以再比较自动选择；有明确主备偏好，就检查故障转移顺序。不要仅凭组名判断功能，名称可以改，实际策略可能不同。</p>
+<p>切换以后，打开连接记录确认最终用了哪个节点。一次只改一种策略，观察常用应用的效果，比不停刷新延迟更有意义。</p>
+<h2 id="heading-4">接着看</h2>
+<ul>
+<li><a href="https://aifanqiang.ink/posts/node-switch-existing-connections/">切了节点，为什么还是原来的 IP？先检查旧连接</a></li>
+<li><a href="https://aifanqiang.ink/posts/node-speed-test-guide/">机场节点测速怎么看？别只盯着延迟和下载数字</a></li>
+<li><a href="https://aifanqiang.ink/posts/rule-global-tun-guide/">规则、全局和 TUN 怎么选？先分清两个开关在管什么</a></li>
+</ul>
+<h2 id="heading-5">资料参考</h2>
+<ul>
+<li><a href="https://wiki.metacubex.one/config/proxy-groups/url-test/">Mihomo 自动选择</a></li>
+<li><a href="https://wiki.metacubex.one/config/proxy-groups/fallback/">Mihomo 自动回退</a></li>
+<li><a href="https://wiki.metacubex.one/config/proxy-groups/load-balance/">Mihomo 负载均衡</a></li>
+</ul>
+</div>
+<div class="article-likes" data-pagefind-ignore>
+<button id="page-like" class="like-button" type="button" aria-pressed="false" aria-describedby="page-like-message" disabled>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+<span id="page-like-label">点赞</span><span id="page-like-count">—</span>
+</button><p id="page-like-message" role="status"></p>
+</div>
+<div class="article-tags" data-pagefind-ignore><a href="https://aifanqiang.ink/tags/beginners/"># 新手入门</a><a href="https://aifanqiang.ink/tags/troubleshooting/"># 使用排障</a></div>
+<nav class="pagination" aria-label="相邻文章" data-pagefind-ignore><a href="https://aifanqiang.ink/posts/traffic-usage-troubleshooting/">← 上一篇</a><a href="https://aifanqiang.ink/posts/subscription-link-safety/">下一篇 →</a></nav>
+<section class="comments-section" data-pagefind-ignore><h2>评论</h2><div id="comments"></div></section>
+</article>
+</div><div class="article-rail">
+<aside class="toc"><div>本篇目录</div><nav aria-label="文章目录"><a class="level-2" href="#heading">自动选择：按检查结果帮你挑</a><a class="level-2" href="#heading-1">故障转移：主用不行，再用备用</a><a class="level-2" href="#heading-2">负载均衡：把不同连接分给不同节点</a><a class="level-2" href="#heading-3">不知道怎么选，就从手动开始</a><a class="level-2" href="#heading-4">接着看</a><a class="level-2" href="#heading-5">资料参考</a></nav></aside>
+</div></div>
+
+</main>
+</div>
+<button id="back-to-top" class="back-to-top" type="button" aria-label="返回顶部" title="返回顶部" hidden>
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14M12 20V8m-5 5 5-5 5 5"/></svg>
+</button>
+</div>
+
+<footer class="site-footer">
+
+<span>© 2026</span>
+</footer>
+
+
+
+<dialog id="search-dialog" class="reader-dialog site-search" aria-labelledby="search-title" data-reader-dialog data-pagefind-ignore>
+<header class="reader-dialog-header"><h2 id="search-title">搜索文章</h2><button class="dialog-close" type="button" data-close-dialog aria-label="关闭搜索" title="关闭搜索">×</button></header>
+<div class="reader-dialog-body">
+
+<div id="site-search-ui" data-module="https://aifanqiang.ink/pagefind/pagefind-component-ui.js" data-stylesheet="https://aifanqiang.ink/pagefind/pagefind-component-ui.css" hidden>
+
+<pagefind-config bundle-path="https://aifanqiang.ink/pagefind/" base-url="https://aifanqiang.ink/" lang="zh-cn" no-worker></pagefind-config>
+<pagefind-input placeholder="搜索文章标题或正文"></pagefind-input>
+<pagefind-summary></pagefind-summary>
+<pagefind-results></pagefind-results>
+</div>
+<p id="search-status" class="search-status" role="status">正在加载搜索…</p>
+<button id="search-retry" class="button" type="button" hidden>重新加载</button>
+
+</div>
+</dialog>
+
+<script id="blog-comments-config" type="application/json">{"comments":true,"likes":true,"locale":"zh-CN","pageKey":"/p/e9aaa4cc-4e1a-4c9c-b592-39407999b3d2/","pageTitle":"节点选“自动”还是手动？三种策略组怎么用","server":"https://upfqpobmiewm.sealosgzg.site","site":"xblog-308971b4-4ce1-43f6-885d-ba5104d6c489","views":true,"viewsBase":0}</script>
+
+</body>
+</html>

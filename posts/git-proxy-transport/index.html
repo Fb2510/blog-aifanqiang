@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="anime">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>浏览器能访问，Git 克隆却失败？先看仓库地址类型 · 小六有点六</title>
+<meta name="description" content="Git 克隆失败时，先区分 HTTPS 和 SSH，再核对命令行实际使用的代理。浏览器正常不能证明 Git 设置正确，也不要用关闭证书验证来排障。">
+<meta name="keywords" content="Git代理设置,git clone失败,Git HTTPS代理,Git SSH连接">
+<meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://aifanqiang.ink/posts/git-proxy-transport/">
+<meta property="og:title" content="浏览器能访问，Git 克隆却失败？先看仓库地址类型">
+<meta property="og:description" content="Git 克隆失败时，先区分 HTTPS 和 SSH，再核对命令行实际使用的代理。浏览器正常不能证明 Git 设置正确，也不要用关闭证书验证来排障。">
+<meta property="og:url" content="https://aifanqiang.ink/posts/git-proxy-transport/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小六有点六">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png"><meta property="og:image:alt" content="小六有点六">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浏览器能访问，Git 克隆却失败？先看仓库地址类型">
+<meta name="twitter:description" content="Git 克隆失败时，先区分 HTTPS 和 SSH，再核对命令行实际使用的代理。浏览器正常不能证明 Git 设置正确，也不要用关闭证书验证来排障。">
+<meta name="twitter:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<meta name="author" content="小六"><meta property="article:published_time" content="2026-10-08T09:12:27&#43;08:00"><meta property="article:modified_time" content="2026-11-14T14:03:38&#43;08:00"><meta property="article:tag" content="使用排障">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/posts/git-proxy-transport/#article","@type":"BlogPosting","author":{"@type":"Person","name":"小六"},"dateModified":"2026-11-14T14:03:38+08:00","datePublished":"2026-10-08T09:12:27+08:00","description":"Git 克隆失败时，先区分 HTTPS 和 SSH，再核对命令行实际使用的代理。浏览器正常不能证明 Git 设置正确，也不要用关闭证书验证来排障。","headline":"浏览器能访问，Git 克隆却失败？先看仓库地址类型","inLanguage":"zh-CN","mainEntityOfPage":{"@id":"https://aifanqiang.ink/posts/git-proxy-transport/","@type":"WebPage"},"url":"https://aifanqiang.ink/posts/git-proxy-transport/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/posts/git-proxy-transport/","name":"浏览器能访问，Git 克隆却失败？先看仓库地址类型","position":2}]}]}</script>
+
+<script>(()=>{let mode='system';try{const saved=localStorage.getItem('reader-theme');if(['system','light','dark'].includes(saved))mode=saved}catch{}const root=document.documentElement;root.dataset.colorMode=mode;root.classList.toggle('dark',mode==='dark'||(mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))})();</script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/style.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/advertisements.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/search.css"><script defer src="https://aifanqiang.ink/assets/theme/search.js"></script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/layouts.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/effects.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/skin.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/viewer.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/reader.css">
+<link rel="icon" href="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/artalk.css"><script defer src="https://aifanqiang.ink/assets/theme/artalk.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/theme.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/reader.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/viewer.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/image-viewer.js"></script>
+
+<script defer src="https://aifanqiang.ink/assets/theme/interactions.js"></script>
+
+<meta name="msvalidate.01" content="3D562902FFD6655EA5B649095B7D8365" />
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MF8TKHJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+
+<script defer src="https://aifanqiang.ink/assets/xblog/google-analytics.js" data-xblog-google-analytics="G-2MVRPZXCVH" data-site-hosts="aifanqiang.ink,www.aifanqiang.ink"></script></head>
+
+<body class="reader-page theme-anime article-page">
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="https://aifanqiang.ink/"><img src="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png" alt="" width="38" height="38"><span>小六有点六</span></a>
+<nav id="site-navigation" aria-label="站点导航"><a href="https://aifanqiang.ink/">首页</a></nav>
+<a class="search-toggle" href="https://aifanqiang.ink/search/" data-open-dialog="search-dialog" aria-haspopup="dialog" aria-controls="search-dialog" aria-label="搜索" title="搜索"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></a>
+<button id="theme-mode" class="theme-toggle theme-cycle" type="button" aria-label="明暗模式：跟随系统，点击切换为明亮" title="跟随系统 · 点击切换为明亮">
+<svg class="theme-icon-system" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+<svg class="theme-icon-moon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.5A8.5 8.5 0 0 1 8.5 3.8 8.5 8.5 0 1 0 20.2 15.5Z"/></svg>
+<svg class="theme-icon-sun" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
+<span id="theme-mode-status" class="visually-hidden" role="status" aria-live="polite"></span>
+<button id="menu-toggle" class="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="打开菜单" title="打开菜单">
+<svg class="menu-icon-open" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+<svg class="menu-icon-close" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>
+</button>
+</div>
+</header>
+
+<div class="page-viewport article-viewport"><div class="page-scroll article-scroll">
+<main id="main" tabindex="-1" class="anime-workspace theme-workspace theme-article">
+
+<nav class="breadcrumbs" aria-label="面包屑导航"><ol><li><a href="https://aifanqiang.ink/">小六有点六</a></li><li><span aria-current="page">浏览器能访问，Git 克隆却失败？先看仓库地址类型</span></li></ol></nav>
+
+
+<div class="anime-letter"><div class="letter-paper">
+<article data-pagefind-body>
+<header class="article-header">
+<div class="eyebrow" data-pagefind-ignore>
+手账正文</div>
+<h1 data-pagefind-meta="title">浏览器能访问，Git 克隆却失败？先看仓库地址类型</h1>
+<div class="metadata" data-pagefind-ignore><span>小六</span><time datetime="2026-10-08T09:12:27&#43;08:00">2026-10-08</time><span><span id="page-views">—</span> 次阅读</span></div>
+<div class="chips" data-pagefind-ignore><a href="https://aifanqiang.ink/categories/client-guides/">客户端教程</a></div>
+</header>
+<div class="prose"><p>GitHub 网页能打开，<code>git clone</code> 却失败，常见原因之一是浏览器和 Git 没有走同一条连接。先把仓库地址看清楚，再查设置。</p>
+<h2 id="https--ssh">HTTPS 和 SSH，查的不是同一处</h2>
+<p>以 <code>https://</code> 开头的地址，与常见的 <code>git@...</code> 地址，可能使用不同传输方式。Git 的 <code>http.proxy</code> 不是给所有方式统一加代理的开关，SSH 需要按它自己的连接方式检查。</p>
+<p>有时本地还配置了地址重写，表面复制的是一种地址，实际使用的可能是另一种。</p>
+<h2 id="heading">先查看，不急着永久改配置</h2>
+<p>已有仓库中，可以用下面的命令查看远程地址：</p>
+<pre><code class="language-text">git remote -v
+</code></pre>
+<p>分享输出前，隐藏私人仓库路径和可能嵌在地址中的凭据。还没克隆时，就先核对准备使用的完整地址。</p>
+<p>再检查 Git 版本、使用的程序位置和代理配置来源。系统、个人和项目目录中的设置可能不同，编辑器内置 Git 也未必与终端是同一环境。</p>
+<h2 id="heading-1">按错误类型继续查</h2>
+<p>连接本地代理失败，先看客户端端口；连接目标超时，检查网络路径；证书报错，核对时间与信任设置；账号或密钥报错，则要检查访问权限。</p>
+<p>不要把所有错误都归为网速慢，也不要用关闭证书验证来掩盖问题。</p>
+<h2 id="heading-2">网页能看，不代表仓库能下载</h2>
+<p>仓库权限、文件下载和不同传输方式各有条件。固定一个仓库地址和一套环境，做一次明确的代理对照，比反复切换全局设置更容易找到原因。</p>
+<p>求助时提供地址类型和脱敏的错误末尾，通常已经足够开始判断，不需要公开访问令牌。</p>
+<h2 id="heading-3">接着看</h2>
+<ul>
+<li><a href="https://aifanqiang.ink/posts/curl-proxy-configuration/">浏览器能上网，curl 却失败？先把代理地址填对</a></li>
+<li><a href="https://aifanqiang.ink/posts/proxy-tls-certificate-errors/">代理提示证书错误怎么办？先看时间、网址和报错位置</a></li>
+<li><a href="https://aifanqiang.ink/posts/npm-ping-install-timeout/">npm ping 正常，安装还是超时？查真正下载的地址</a></li>
+</ul>
+<h2 id="heading-4">资料参考</h2>
+<ul>
+<li><a href="https://git-scm.com/docs/git-config">Git 配置手册</a></li>
+<li><a href="https://git-scm.com/docs/git-clone#_git_urls">Git 支持的仓库地址</a></li>
+</ul>
+</div>
+<div class="article-likes" data-pagefind-ignore>
+<button id="page-like" class="like-button" type="button" aria-pressed="false" aria-describedby="page-like-message" disabled>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+<span id="page-like-label">点赞</span><span id="page-like-count">—</span>
+</button><p id="page-like-message" role="status"></p>
+</div>
+<div class="article-tags" data-pagefind-ignore><a href="https://aifanqiang.ink/tags/troubleshooting/"># 使用排障</a></div>
+<nav class="pagination" aria-label="相邻文章" data-pagefind-ignore><a href="https://aifanqiang.ink/posts/chrome-proxy-extension-conflicts/">← 上一篇</a><a href="https://aifanqiang.ink/posts/captive-portal-proxy/">下一篇 →</a></nav>
+<section class="comments-section" data-pagefind-ignore><h2>评论</h2><div id="comments"></div></section>
+</article>
+</div><div class="article-rail">
+<aside class="toc"><div>本篇目录</div><nav aria-label="文章目录"><a class="level-2" href="#https--ssh">HTTPS 和 SSH，查的不是同一处</a><a class="level-2" href="#heading">先查看，不急着永久改配置</a><a class="level-2" href="#heading-1">按错误类型继续查</a><a class="level-2" href="#heading-2">网页能看，不代表仓库能下载</a><a class="level-2" href="#heading-3">接着看</a><a class="level-2" href="#heading-4">资料参考</a></nav></aside>
+</div></div>
+
+</main>
+</div>
+<button id="back-to-top" class="back-to-top" type="button" aria-label="返回顶部" title="返回顶部" hidden>
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14M12 20V8m-5 5 5-5 5 5"/></svg>
+</button>
+</div>
+
+<footer class="site-footer">
+
+<span>© 2026</span>
+</footer>
+
+
+
+<dialog id="search-dialog" class="reader-dialog site-search" aria-labelledby="search-title" data-reader-dialog data-pagefind-ignore>
+<header class="reader-dialog-header"><h2 id="search-title">搜索文章</h2><button class="dialog-close" type="button" data-close-dialog aria-label="关闭搜索" title="关闭搜索">×</button></header>
+<div class="reader-dialog-body">
+
+<div id="site-search-ui" data-module="https://aifanqiang.ink/pagefind/pagefind-component-ui.js" data-stylesheet="https://aifanqiang.ink/pagefind/pagefind-component-ui.css" hidden>
+
+<pagefind-config bundle-path="https://aifanqiang.ink/pagefind/" base-url="https://aifanqiang.ink/" lang="zh-cn" no-worker></pagefind-config>
+<pagefind-input placeholder="搜索文章标题或正文"></pagefind-input>
+<pagefind-summary></pagefind-summary>
+<pagefind-results></pagefind-results>
+</div>
+<p id="search-status" class="search-status" role="status">正在加载搜索…</p>
+<button id="search-retry" class="button" type="button" hidden>重新加载</button>
+
+</div>
+</dialog>
+
+<script id="blog-comments-config" type="application/json">{"comments":true,"likes":true,"locale":"zh-CN","pageKey":"/p/d02fb234-54df-4517-8577-1c2a2554beb3/","pageTitle":"浏览器能访问，Git 克隆却失败？先看仓库地址类型","server":"https://upfqpobmiewm.sealosgzg.site","site":"xblog-308971b4-4ce1-43f6-885d-ba5104d6c489","views":true,"viewsBase":0}</script>
+
+</body>
+</html>

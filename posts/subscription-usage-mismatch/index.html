@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="anime">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>客户端剩余流量和机场后台不一样？先看更新时间 · 小六有点六</title>
+<meta name="description" content="客户端卡片可能显示上次订阅更新时收到的用量，而后台记录范围不同。先对齐时间、设备、单位和账期，再判断是否存在计费差异。">
+<meta name="keywords" content="机场剩余流量不一致,Clash流量显示,订阅用量,GB和GiB">
+<meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://aifanqiang.ink/posts/subscription-usage-mismatch/">
+<meta property="og:title" content="客户端剩余流量和机场后台不一样？先看更新时间">
+<meta property="og:description" content="客户端卡片可能显示上次订阅更新时收到的用量，而后台记录范围不同。先对齐时间、设备、单位和账期，再判断是否存在计费差异。">
+<meta property="og:url" content="https://aifanqiang.ink/posts/subscription-usage-mismatch/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小六有点六">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png"><meta property="og:image:alt" content="小六有点六">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="客户端剩余流量和机场后台不一样？先看更新时间">
+<meta name="twitter:description" content="客户端卡片可能显示上次订阅更新时收到的用量，而后台记录范围不同。先对齐时间、设备、单位和账期，再判断是否存在计费差异。">
+<meta name="twitter:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<meta name="author" content="小六"><meta property="article:published_time" content="2026-11-08T09:16:44&#43;08:00"><meta property="article:modified_time" content="2026-11-14T14:06:28&#43;08:00"><meta property="article:tag" content="订阅管理"><meta property="article:tag" content="使用排障">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/posts/subscription-usage-mismatch/#article","@type":"BlogPosting","author":{"@type":"Person","name":"小六"},"dateModified":"2026-11-14T14:06:28+08:00","datePublished":"2026-11-08T09:16:44+08:00","description":"客户端卡片可能显示上次订阅更新时收到的用量，而后台记录范围不同。先对齐时间、设备、单位和账期，再判断是否存在计费差异。","headline":"客户端剩余流量和机场后台不一样？先看更新时间","inLanguage":"zh-CN","mainEntityOfPage":{"@id":"https://aifanqiang.ink/posts/subscription-usage-mismatch/","@type":"WebPage"},"url":"https://aifanqiang.ink/posts/subscription-usage-mismatch/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/posts/subscription-usage-mismatch/","name":"客户端剩余流量和机场后台不一样？先看更新时间","position":2}]}]}</script>
+
+<script>(()=>{let mode='system';try{const saved=localStorage.getItem('reader-theme');if(['system','light','dark'].includes(saved))mode=saved}catch{}const root=document.documentElement;root.dataset.colorMode=mode;root.classList.toggle('dark',mode==='dark'||(mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))})();</script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/style.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/advertisements.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/search.css"><script defer src="https://aifanqiang.ink/assets/theme/search.js"></script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/layouts.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/effects.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/skin.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/viewer.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/reader.css">
+<link rel="icon" href="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/artalk.css"><script defer src="https://aifanqiang.ink/assets/theme/artalk.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/theme.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/reader.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/viewer.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/image-viewer.js"></script>
+
+<script defer src="https://aifanqiang.ink/assets/theme/interactions.js"></script>
+
+<meta name="msvalidate.01" content="3D562902FFD6655EA5B649095B7D8365" />
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MF8TKHJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+
+<script defer src="https://aifanqiang.ink/assets/xblog/google-analytics.js" data-xblog-google-analytics="G-2MVRPZXCVH" data-site-hosts="aifanqiang.ink,www.aifanqiang.ink"></script></head>
+
+<body class="reader-page theme-anime article-page">
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="https://aifanqiang.ink/"><img src="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png" alt="" width="38" height="38"><span>小六有点六</span></a>
+<nav id="site-navigation" aria-label="站点导航"><a href="https://aifanqiang.ink/">首页</a></nav>
+<a class="search-toggle" href="https://aifanqiang.ink/search/" data-open-dialog="search-dialog" aria-haspopup="dialog" aria-controls="search-dialog" aria-label="搜索" title="搜索"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></a>
+<button id="theme-mode" class="theme-toggle theme-cycle" type="button" aria-label="明暗模式：跟随系统，点击切换为明亮" title="跟随系统 · 点击切换为明亮">
+<svg class="theme-icon-system" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+<svg class="theme-icon-moon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.5A8.5 8.5 0 0 1 8.5 3.8 8.5 8.5 0 1 0 20.2 15.5Z"/></svg>
+<svg class="theme-icon-sun" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
+<span id="theme-mode-status" class="visually-hidden" role="status" aria-live="polite"></span>
+<button id="menu-toggle" class="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="打开菜单" title="打开菜单">
+<svg class="menu-icon-open" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+<svg class="menu-icon-close" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>
+</button>
+</div>
+</header>
+
+<div class="page-viewport article-viewport"><div class="page-scroll article-scroll">
+<main id="main" tabindex="-1" class="anime-workspace theme-workspace theme-article">
+
+<nav class="breadcrumbs" aria-label="面包屑导航"><ol><li><a href="https://aifanqiang.ink/">小六有点六</a></li><li><span aria-current="page">客户端剩余流量和机场后台不一样？先看更新时间</span></li></ol></nav>
+
+
+<div class="anime-letter"><div class="letter-paper">
+<article data-pagefind-body>
+<header class="article-header">
+<div class="eyebrow" data-pagefind-ignore>
+手账正文</div>
+<h1 data-pagefind-meta="title">客户端剩余流量和机场后台不一样？先看更新时间</h1>
+<div class="metadata" data-pagefind-ignore><span>小六</span><time datetime="2026-11-08T09:16:44&#43;08:00">2026-11-08</time><span><span id="page-views">—</span> 次阅读</span></div>
+<div class="chips" data-pagefind-ignore><a href="https://aifanqiang.ink/categories/subscription-and-traffic/">订阅与流量</a></div>
+</header>
+<div class="prose"><p>客户端说还剩一大半，后台却少了不少；或者两边只差一点点。先别急着认定多扣流量，它们可能不是同一时刻、同一范围的数字。</p>
+<h2 id="heading">客户端卡片可能拿的是一张“用量便条”</h2>
+<p>某些订阅响应会附带上传、下载、总量和到期信息，客户端据此展示卡片。它可能随着订阅更新而刷新，不一定每秒都与后台同步。</p>
+<p>这与客户端实时显示的当前速度、本次运行累计用量，也不是同一件事。先确认你比较的是哪两项。</p>
+<h2 id="heading-1">先对齐更新时间和账号范围</h2>
+<p>记录两边显示的时间，正常更新一次订阅，再看变化。后台可能合并手机、电脑和平板的账号用量，而某个设备的本地统计只包含自己。</p>
+<p>账期、重置日和到期时间也要分别看。套餐到期不是流量清零日期，今天的本地用量也不能直接减本月后台总量。</p>
+<h2 id="heading-2">小差异可能与单位和显示方式有关</h2>
+<p>GB 和 GiB 的换算方式不同，四舍五入也会让界面数字不同。先核对单位与精度，再比较，不要只把两张截图的数字直接相减。</p>
+<p>如果还涉及节点倍率和上传计费，则按服务方条款确认，不要自己给显示差额套一种算法。</p>
+<h2 id="heading-3">怎样留下有用记录？</h2>
+<p>选择一段明确时间，记下更新前后显示、在线设备和使用的节点。尽量减少其他设备同时使用，让这次对照更容易解释。</p>
+<p>如果时间、范围、单位和规则都一致，差异仍持续明显，再请服务方核对。提供这些记录即可，不必公开完整订阅或账户密码。</p>
+<h2 id="heading-4">接着看</h2>
+<ul>
+<li><a href="https://aifanqiang.ink/posts/traffic-usage-troubleshooting/">机场流量为什么用得这么快？先查这三处</a></li>
+<li><a href="https://aifanqiang.ink/posts/subscription-304-active-config/">订阅更新成功，节点却没变化？304 不一定是失败</a></li>
+<li><a href="https://aifanqiang.ink/posts/airport-plan-checklist/">机场套餐怎么选才不浪费？流量、倍率和设备限制这样看</a></li>
+</ul>
+<h2 id="heading-5">资料参考</h2>
+<ul>
+<li><a href="https://www.clashverge.dev/guide/url_schemes.html#subscription-userinfo">订阅响应头文档</a></li>
+<li><a href="https://github.com/MetaCubeX/metacubexd#profiles--config-editor-desktop--server">官方项目说明</a></li>
+</ul>
+</div>
+<div class="article-likes" data-pagefind-ignore>
+<button id="page-like" class="like-button" type="button" aria-pressed="false" aria-describedby="page-like-message" disabled>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+<span id="page-like-label">点赞</span><span id="page-like-count">—</span>
+</button><p id="page-like-message" role="status"></p>
+</div>
+<div class="article-tags" data-pagefind-ignore><a href="https://aifanqiang.ink/tags/subscription-management/"># 订阅管理</a><a href="https://aifanqiang.ink/tags/troubleshooting/"># 使用排障</a></div>
+<nav class="pagination" aria-label="相邻文章" data-pagefind-ignore><a href="https://aifanqiang.ink/posts/subscription-one-click-import/">← 上一篇</a><a href="https://aifanqiang.ink/posts/har-export-privacy-checklist/">下一篇 →</a></nav>
+<section class="comments-section" data-pagefind-ignore><h2>评论</h2><div id="comments"></div></section>
+</article>
+</div><div class="article-rail">
+<aside class="toc"><div>本篇目录</div><nav aria-label="文章目录"><a class="level-2" href="#heading">客户端卡片可能拿的是一张“用量便条”</a><a class="level-2" href="#heading-1">先对齐更新时间和账号范围</a><a class="level-2" href="#heading-2">小差异可能与单位和显示方式有关</a><a class="level-2" href="#heading-3">怎样留下有用记录？</a><a class="level-2" href="#heading-4">接着看</a><a class="level-2" href="#heading-5">资料参考</a></nav></aside>
+</div></div>
+
+</main>
+</div>
+<button id="back-to-top" class="back-to-top" type="button" aria-label="返回顶部" title="返回顶部" hidden>
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14M12 20V8m-5 5 5-5 5 5"/></svg>
+</button>
+</div>
+
+<footer class="site-footer">
+
+<span>© 2026</span>
+</footer>
+
+
+
+<dialog id="search-dialog" class="reader-dialog site-search" aria-labelledby="search-title" data-reader-dialog data-pagefind-ignore>
+<header class="reader-dialog-header"><h2 id="search-title">搜索文章</h2><button class="dialog-close" type="button" data-close-dialog aria-label="关闭搜索" title="关闭搜索">×</button></header>
+<div class="reader-dialog-body">
+
+<div id="site-search-ui" data-module="https://aifanqiang.ink/pagefind/pagefind-component-ui.js" data-stylesheet="https://aifanqiang.ink/pagefind/pagefind-component-ui.css" hidden>
+
+<pagefind-config bundle-path="https://aifanqiang.ink/pagefind/" base-url="https://aifanqiang.ink/" lang="zh-cn" no-worker></pagefind-config>
+<pagefind-input placeholder="搜索文章标题或正文"></pagefind-input>
+<pagefind-summary></pagefind-summary>
+<pagefind-results></pagefind-results>
+</div>
+<p id="search-status" class="search-status" role="status">正在加载搜索…</p>
+<button id="search-retry" class="button" type="button" hidden>重新加载</button>
+
+</div>
+</dialog>
+
+<script id="blog-comments-config" type="application/json">{"comments":true,"likes":true,"locale":"zh-CN","pageKey":"/p/a6996146-c946-409f-8b42-4b36ae275715/","pageTitle":"客户端剩余流量和机场后台不一样？先看更新时间","server":"https://upfqpobmiewm.sealosgzg.site","site":"xblog-308971b4-4ce1-43f6-885d-ba5104d6c489","views":true,"viewsBase":0}</script>
+
+</body>
+</html>

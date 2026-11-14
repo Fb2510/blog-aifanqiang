@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="anime">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Docker 容器不能上网？先分清镜像拉取和容器代理 · 小六有点六</title>
+<meta name="description" content="电脑能用代理，不代表 Docker 拉镜像和容器内应用都已配置。先区分失败环节，再检查宿主机地址、代理入口与新容器的设置。">
+<meta name="keywords" content="Docker代理,Docker容器无法联网,host.docker.internal,镜像拉取失败">
+<meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://aifanqiang.ink/posts/docker-container-proxy/">
+<meta property="og:title" content="Docker 容器不能上网？先分清镜像拉取和容器代理">
+<meta property="og:description" content="电脑能用代理，不代表 Docker 拉镜像和容器内应用都已配置。先区分失败环节，再检查宿主机地址、代理入口与新容器的设置。">
+<meta property="og:url" content="https://aifanqiang.ink/posts/docker-container-proxy/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小六有点六">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png"><meta property="og:image:alt" content="小六有点六">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker 容器不能上网？先分清镜像拉取和容器代理">
+<meta name="twitter:description" content="电脑能用代理，不代表 Docker 拉镜像和容器内应用都已配置。先区分失败环节，再检查宿主机地址、代理入口与新容器的设置。">
+<meta name="twitter:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<meta name="author" content="小六"><meta property="article:published_time" content="2026-10-12T09:10:06&#43;08:00"><meta property="article:modified_time" content="2026-11-14T14:03:48&#43;08:00"><meta property="article:tag" content="新手入门"><meta property="article:tag" content="使用排障">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/posts/docker-container-proxy/#article","@type":"BlogPosting","author":{"@type":"Person","name":"小六"},"dateModified":"2026-11-14T14:03:48+08:00","datePublished":"2026-10-12T09:10:06+08:00","description":"电脑能用代理，不代表 Docker 拉镜像和容器内应用都已配置。先区分失败环节，再检查宿主机地址、代理入口与新容器的设置。","headline":"Docker 容器不能上网？先分清镜像拉取和容器代理","inLanguage":"zh-CN","mainEntityOfPage":{"@id":"https://aifanqiang.ink/posts/docker-container-proxy/","@type":"WebPage"},"url":"https://aifanqiang.ink/posts/docker-container-proxy/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/posts/docker-container-proxy/","name":"Docker 容器不能上网？先分清镜像拉取和容器代理","position":2}]}]}</script>
+
+<script>(()=>{let mode='system';try{const saved=localStorage.getItem('reader-theme');if(['system','light','dark'].includes(saved))mode=saved}catch{}const root=document.documentElement;root.dataset.colorMode=mode;root.classList.toggle('dark',mode==='dark'||(mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))})();</script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/style.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/advertisements.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/search.css"><script defer src="https://aifanqiang.ink/assets/theme/search.js"></script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/layouts.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/effects.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/skin.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/viewer.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/reader.css">
+<link rel="icon" href="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/artalk.css"><script defer src="https://aifanqiang.ink/assets/theme/artalk.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/theme.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/reader.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/viewer.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/image-viewer.js"></script>
+
+<script defer src="https://aifanqiang.ink/assets/theme/interactions.js"></script>
+
+<meta name="msvalidate.01" content="3D562902FFD6655EA5B649095B7D8365" />
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MF8TKHJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+
+<script defer src="https://aifanqiang.ink/assets/xblog/google-analytics.js" data-xblog-google-analytics="G-2MVRPZXCVH" data-site-hosts="aifanqiang.ink,www.aifanqiang.ink"></script></head>
+
+<body class="reader-page theme-anime article-page">
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="https://aifanqiang.ink/"><img src="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png" alt="" width="38" height="38"><span>小六有点六</span></a>
+<nav id="site-navigation" aria-label="站点导航"><a href="https://aifanqiang.ink/">首页</a></nav>
+<a class="search-toggle" href="https://aifanqiang.ink/search/" data-open-dialog="search-dialog" aria-haspopup="dialog" aria-controls="search-dialog" aria-label="搜索" title="搜索"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></a>
+<button id="theme-mode" class="theme-toggle theme-cycle" type="button" aria-label="明暗模式：跟随系统，点击切换为明亮" title="跟随系统 · 点击切换为明亮">
+<svg class="theme-icon-system" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+<svg class="theme-icon-moon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.5A8.5 8.5 0 0 1 8.5 3.8 8.5 8.5 0 1 0 20.2 15.5Z"/></svg>
+<svg class="theme-icon-sun" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
+<span id="theme-mode-status" class="visually-hidden" role="status" aria-live="polite"></span>
+<button id="menu-toggle" class="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="打开菜单" title="打开菜单">
+<svg class="menu-icon-open" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+<svg class="menu-icon-close" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>
+</button>
+</div>
+</header>
+
+<div class="page-viewport article-viewport"><div class="page-scroll article-scroll">
+<main id="main" tabindex="-1" class="anime-workspace theme-workspace theme-article">
+
+<nav class="breadcrumbs" aria-label="面包屑导航"><ol><li><a href="https://aifanqiang.ink/">小六有点六</a></li><li><span aria-current="page">Docker 容器不能上网？先分清镜像拉取和容器代理</span></li></ol></nav>
+
+
+<div class="anime-letter"><div class="letter-paper">
+<article data-pagefind-body>
+<header class="article-header">
+<div class="eyebrow" data-pagefind-ignore>
+手账正文</div>
+<h1 data-pagefind-meta="title">Docker 容器不能上网？先分清镜像拉取和容器代理</h1>
+<div class="metadata" data-pagefind-ignore><span>小六</span><time datetime="2026-10-12T09:10:06&#43;08:00">2026-10-12</time><span><span id="page-views">—</span> 次阅读</span></div>
+<div class="chips" data-pagefind-ignore><a href="https://aifanqiang.ink/categories/client-guides/">客户端教程</a></div>
+</header>
+<div class="prose"><p>电脑能上网，Docker 里的下载却超时，很容易让人以为“代理已经配置了，怎么还不行”。先看失败的是拉镜像，还是容器里某个软件联网。</p>
+<h2 id="heading">这几处设置不一定共用</h2>
+<p>Docker 自身拉取镜像、构建时下载依赖、容器内的程序访问网络，可能需要分别配置。某一步成功，只能证明那一步在当前条件下可用。</p>
+<p>因此，先保存准确错误和发生阶段，再找对应设置，不要把同一段代理地址到处复制。</p>
+<h2 id="-127001">容器里的 127.0.0.1，通常指容器自己</h2>
+<p>在常见的普通容器网络中，电脑上可用的 <code>127.0.0.1:7890</code> 原样放进容器，未必能找到电脑上的代理。</p>
+<p>Docker Desktop 提供 <code>host.docker.internal</code> 这类访问宿主机的方式，但不能把它当成所有 Docker 环境都自动支持的名称。原生 Linux、远端 Docker 或其他网络模式，需要按相应文档处理。</p>
+<h2 id="heading-1">找到宿主机，还要确认入口可达</h2>
+<p>检查电脑客户端实际启用的端口与代理类型，以及是否允许来自该网络的连接。地址正确但入口只接受特定来源，也可能失败。</p>
+<p>只开放必要范围，不要为省事把本地代理直接暴露到公网。若 Docker 运行在远端机器上，宿主机也不是你眼前这台电脑。</p>
+<h2 id="heading-2">配置更新，不一定改变旧容器</h2>
+<p>Docker 文档中通过客户端配置传入的代理环境变量，主要用于之后创建的容器和构建，已有容器不会自动被改写。先确认自己正在测试的是哪一个实例。</p>
+<p>让一次明确请求成功后，再安排长期配置。代理凭据不要写进要公开的镜像或配置示例，分享日志前也要检查相关变量。</p>
+<h2 id="heading-3">接着看</h2>
+<ul>
+<li><a href="https://aifanqiang.ink/posts/wsl2-windows-proxy/">Windows 代理正常，WSL2 却连不上？先看 localhost 指向谁</a></li>
+<li><a href="https://aifanqiang.ink/posts/curl-proxy-configuration/">浏览器能上网，curl 却失败？先把代理地址填对</a></li>
+<li><a href="https://aifanqiang.ink/posts/no-proxy-host-matching/">NO_PROXY 不生效？先看你排除的是哪个目标</a></li>
+</ul>
+<h2 id="heading-4">资料参考</h2>
+<ul>
+<li><a href="https://docs.docker.com/engine/cli/proxy/">Docker 容器代理配置</a></li>
+<li><a href="https://docs.docker.com/desktop/troubleshoot-and-support/faqs/general/">Docker Desktop 访问宿主机</a></li>
+</ul>
+</div>
+<div class="article-likes" data-pagefind-ignore>
+<button id="page-like" class="like-button" type="button" aria-pressed="false" aria-describedby="page-like-message" disabled>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+<span id="page-like-label">点赞</span><span id="page-like-count">—</span>
+</button><p id="page-like-message" role="status"></p>
+</div>
+<div class="article-tags" data-pagefind-ignore><a href="https://aifanqiang.ink/tags/beginners/"># 新手入门</a><a href="https://aifanqiang.ink/tags/troubleshooting/"># 使用排障</a></div>
+<nav class="pagination" aria-label="相邻文章" data-pagefind-ignore><a href="https://aifanqiang.ink/posts/pac-proxy-troubleshooting/">← 上一篇</a><a href="https://aifanqiang.ink/posts/mihomo-dashboard-connection/">下一篇 →</a></nav>
+<section class="comments-section" data-pagefind-ignore><h2>评论</h2><div id="comments"></div></section>
+</article>
+</div><div class="article-rail">
+<aside class="toc"><div>本篇目录</div><nav aria-label="文章目录"><a class="level-2" href="#heading">这几处设置不一定共用</a><a class="level-2" href="#-127001">容器里的 127.0.0.1，通常指容器自己</a><a class="level-2" href="#heading-1">找到宿主机，还要确认入口可达</a><a class="level-2" href="#heading-2">配置更新，不一定改变旧容器</a><a class="level-2" href="#heading-3">接着看</a><a class="level-2" href="#heading-4">资料参考</a></nav></aside>
+</div></div>
+
+</main>
+</div>
+<button id="back-to-top" class="back-to-top" type="button" aria-label="返回顶部" title="返回顶部" hidden>
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14M12 20V8m-5 5 5-5 5 5"/></svg>
+</button>
+</div>
+
+<footer class="site-footer">
+
+<span>© 2026</span>
+</footer>
+
+
+
+<dialog id="search-dialog" class="reader-dialog site-search" aria-labelledby="search-title" data-reader-dialog data-pagefind-ignore>
+<header class="reader-dialog-header"><h2 id="search-title">搜索文章</h2><button class="dialog-close" type="button" data-close-dialog aria-label="关闭搜索" title="关闭搜索">×</button></header>
+<div class="reader-dialog-body">
+
+<div id="site-search-ui" data-module="https://aifanqiang.ink/pagefind/pagefind-component-ui.js" data-stylesheet="https://aifanqiang.ink/pagefind/pagefind-component-ui.css" hidden>
+
+<pagefind-config bundle-path="https://aifanqiang.ink/pagefind/" base-url="https://aifanqiang.ink/" lang="zh-cn" no-worker></pagefind-config>
+<pagefind-input placeholder="搜索文章标题或正文"></pagefind-input>
+<pagefind-summary></pagefind-summary>
+<pagefind-results></pagefind-results>
+</div>
+<p id="search-status" class="search-status" role="status">正在加载搜索…</p>
+<button id="search-retry" class="button" type="button" hidden>重新加载</button>
+
+</div>
+</dialog>
+
+<script id="blog-comments-config" type="application/json">{"comments":true,"likes":true,"locale":"zh-CN","pageKey":"/p/0df6d939-0afc-4fe8-ac59-5f646fa741ea/","pageTitle":"Docker 容器不能上网？先分清镜像拉取和容器代理","server":"https://upfqpobmiewm.sealosgzg.site","site":"xblog-308971b4-4ce1-43f6-885d-ba5104d6c489","views":true,"viewsBase":0}</script>
+
+</body>
+</html>

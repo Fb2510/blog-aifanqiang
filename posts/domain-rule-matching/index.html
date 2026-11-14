@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="anime">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>分流规则写了还走错？域名、后缀和顺序这样看 · 小六有点六</title>
+<meta name="description" content="分流规则没按预期工作，先找到实际请求的域名，再分清完整匹配、后缀匹配和关键词匹配，最后核对规则顺序与生效配置。">
+<meta name="keywords" content="Clash域名规则,分流规则不生效,DOMAIN-SUFFIX,规则顺序">
+<meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://aifanqiang.ink/posts/domain-rule-matching/">
+<meta property="og:title" content="分流规则写了还走错？域名、后缀和顺序这样看">
+<meta property="og:description" content="分流规则没按预期工作，先找到实际请求的域名，再分清完整匹配、后缀匹配和关键词匹配，最后核对规则顺序与生效配置。">
+<meta property="og:url" content="https://aifanqiang.ink/posts/domain-rule-matching/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小六有点六">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png"><meta property="og:image:alt" content="小六有点六">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分流规则写了还走错？域名、后缀和顺序这样看">
+<meta name="twitter:description" content="分流规则没按预期工作，先找到实际请求的域名，再分清完整匹配、后缀匹配和关键词匹配，最后核对规则顺序与生效配置。">
+<meta name="twitter:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<meta name="author" content="小六"><meta property="article:published_time" content="2026-10-17T09:06:16&#43;08:00"><meta property="article:modified_time" content="2026-11-14T14:04:00&#43;08:00"><meta property="article:tag" content="使用排障">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/posts/domain-rule-matching/#article","@type":"BlogPosting","author":{"@type":"Person","name":"小六"},"dateModified":"2026-11-14T14:04:00+08:00","datePublished":"2026-10-17T09:06:16+08:00","description":"分流规则没按预期工作，先找到实际请求的域名，再分清完整匹配、后缀匹配和关键词匹配，最后核对规则顺序与生效配置。","headline":"分流规则写了还走错？域名、后缀和顺序这样看","inLanguage":"zh-CN","mainEntityOfPage":{"@id":"https://aifanqiang.ink/posts/domain-rule-matching/","@type":"WebPage"},"url":"https://aifanqiang.ink/posts/domain-rule-matching/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/posts/domain-rule-matching/","name":"分流规则写了还走错？域名、后缀和顺序这样看","position":2}]}]}</script>
+
+<script>(()=>{let mode='system';try{const saved=localStorage.getItem('reader-theme');if(['system','light','dark'].includes(saved))mode=saved}catch{}const root=document.documentElement;root.dataset.colorMode=mode;root.classList.toggle('dark',mode==='dark'||(mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))})();</script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/style.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/advertisements.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/search.css"><script defer src="https://aifanqiang.ink/assets/theme/search.js"></script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/layouts.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/effects.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/skin.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/viewer.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/reader.css">
+<link rel="icon" href="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/artalk.css"><script defer src="https://aifanqiang.ink/assets/theme/artalk.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/theme.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/reader.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/viewer.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/image-viewer.js"></script>
+
+<script defer src="https://aifanqiang.ink/assets/theme/interactions.js"></script>
+
+<meta name="msvalidate.01" content="3D562902FFD6655EA5B649095B7D8365" />
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MF8TKHJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+
+<script defer src="https://aifanqiang.ink/assets/xblog/google-analytics.js" data-xblog-google-analytics="G-2MVRPZXCVH" data-site-hosts="aifanqiang.ink,www.aifanqiang.ink"></script></head>
+
+<body class="reader-page theme-anime article-page">
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="https://aifanqiang.ink/"><img src="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png" alt="" width="38" height="38"><span>小六有点六</span></a>
+<nav id="site-navigation" aria-label="站点导航"><a href="https://aifanqiang.ink/">首页</a></nav>
+<a class="search-toggle" href="https://aifanqiang.ink/search/" data-open-dialog="search-dialog" aria-haspopup="dialog" aria-controls="search-dialog" aria-label="搜索" title="搜索"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></a>
+<button id="theme-mode" class="theme-toggle theme-cycle" type="button" aria-label="明暗模式：跟随系统，点击切换为明亮" title="跟随系统 · 点击切换为明亮">
+<svg class="theme-icon-system" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+<svg class="theme-icon-moon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.5A8.5 8.5 0 0 1 8.5 3.8 8.5 8.5 0 1 0 20.2 15.5Z"/></svg>
+<svg class="theme-icon-sun" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
+<span id="theme-mode-status" class="visually-hidden" role="status" aria-live="polite"></span>
+<button id="menu-toggle" class="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="打开菜单" title="打开菜单">
+<svg class="menu-icon-open" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+<svg class="menu-icon-close" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>
+</button>
+</div>
+</header>
+
+<div class="page-viewport article-viewport"><div class="page-scroll article-scroll">
+<main id="main" tabindex="-1" class="anime-workspace theme-workspace theme-article">
+
+<nav class="breadcrumbs" aria-label="面包屑导航"><ol><li><a href="https://aifanqiang.ink/">小六有点六</a></li><li><span aria-current="page">分流规则写了还走错？域名、后缀和顺序这样看</span></li></ol></nav>
+
+
+<div class="anime-letter"><div class="letter-paper">
+<article data-pagefind-body>
+<header class="article-header">
+<div class="eyebrow" data-pagefind-ignore>
+手账正文</div>
+<h1 data-pagefind-meta="title">分流规则写了还走错？域名、后缀和顺序这样看</h1>
+<div class="metadata" data-pagefind-ignore><span>小六</span><time datetime="2026-10-17T09:06:16&#43;08:00">2026-10-17</time><span><span id="page-views">—</span> 次阅读</span></div>
+<div class="chips" data-pagefind-ignore><a href="https://aifanqiang.ink/categories/client-guides/">客户端教程</a></div>
+</header>
+<div class="prose"><p>想让一个网站直连，规则也填了，结果还是走代理。先看你填的是网站域名，还是把整个网址都放进去了。</p>
+<h2 id="heading">域名不包含后面的路径</h2>
+<p>例如 <code>https://files.example.com/docs/start</code>，域名是 <code>files.example.com</code>。前面的 <code>https://</code> 和后面的 <code>/docs/start</code>，不属于普通域名规则要填写的部分。</p>
+<p>地址栏里的域名也未必是失败请求的域名。图片、登录和下载内容可能来自其他地址，要以连接记录中的目标为准。</p>
+<h2 id="heading-1">三种匹配方式，范围不一样</h2>
+<p>完整域名匹配，针对明确的那个名字；后缀匹配，可以覆盖某个域名及其子域名；关键词匹配，则可能把很多包含相同文字的名字一起选中。</p>
+<p>以 Mihomo 为例，后缀 <code>example.com</code> 不会因为看起来相似就匹配 <code>other-example.com</code>；使用宽泛关键词时，却可能包含不想处理的目标。</p>
+<p>不确定范围时，先用更明确的目标，别为了省事塞一个很短的关键词。</p>
+<h2 id="heading-2">顺序决定谁先起作用</h2>
+<p>规则通常从上到下检查，前面的匹配可能让后面的专用规则没有机会。保存后查看实际命中的条目，不要只看规则是否出现在编辑框里。</p>
+<p>还要确认策略名称存在、当前模式会使用这些规则，且重新加载后的确是刚编辑的配置。</p>
+<h2 id="heading-3">用一条新连接验证</h2>
+<p>保存工作后，让目标应用重新建立连接，再查看目标域名、命中规则和出口。只改一条规则，确认效果后再增加其他条目。</p>
+<p>修复某个网站时，顺手测试它的登录、图片和下载功能，避免首页直连成功，其他必要请求却仍然走错。</p>
+<h2 id="heading-4">接着看</h2>
+<ul>
+<li><a href="https://aifanqiang.ink/posts/subscription-custom-rules/">Clash Verge Rev 更新订阅后规则丢了？这样保存自己的设置</a></li>
+<li><a href="https://aifanqiang.ink/posts/process-routing-rules/">按应用分流没生效？先看软件的真实进程名</a></li>
+<li><a href="https://aifanqiang.ink/posts/domain-sniffing-checklist/">域名嗅探要不要开？先看它能帮什么忙</a></li>
+</ul>
+<h2 id="heading-5">资料参考</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/hostname">hostname 说明</a></li>
+<li><a href="https://wiki.metacubex.one/config/rules/">Mihomo 路由规则文档</a></li>
+</ul>
+</div>
+<div class="article-likes" data-pagefind-ignore>
+<button id="page-like" class="like-button" type="button" aria-pressed="false" aria-describedby="page-like-message" disabled>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+<span id="page-like-label">点赞</span><span id="page-like-count">—</span>
+</button><p id="page-like-message" role="status"></p>
+</div>
+<div class="article-tags" data-pagefind-ignore><a href="https://aifanqiang.ink/tags/troubleshooting/"># 使用排障</a></div>
+<nav class="pagination" aria-label="相邻文章" data-pagefind-ignore><a href="https://aifanqiang.ink/posts/macos-proxy-network-services/">← 上一篇</a><a href="https://aifanqiang.ink/posts/background-task-winhttp-proxy/">下一篇 →</a></nav>
+<section class="comments-section" data-pagefind-ignore><h2>评论</h2><div id="comments"></div></section>
+</article>
+</div><div class="article-rail">
+<aside class="toc"><div>本篇目录</div><nav aria-label="文章目录"><a class="level-2" href="#heading">域名不包含后面的路径</a><a class="level-2" href="#heading-1">三种匹配方式，范围不一样</a><a class="level-2" href="#heading-2">顺序决定谁先起作用</a><a class="level-2" href="#heading-3">用一条新连接验证</a><a class="level-2" href="#heading-4">接着看</a><a class="level-2" href="#heading-5">资料参考</a></nav></aside>
+</div></div>
+
+</main>
+</div>
+<button id="back-to-top" class="back-to-top" type="button" aria-label="返回顶部" title="返回顶部" hidden>
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14M12 20V8m-5 5 5-5 5 5"/></svg>
+</button>
+</div>
+
+<footer class="site-footer">
+
+<span>© 2026</span>
+</footer>
+
+
+
+<dialog id="search-dialog" class="reader-dialog site-search" aria-labelledby="search-title" data-reader-dialog data-pagefind-ignore>
+<header class="reader-dialog-header"><h2 id="search-title">搜索文章</h2><button class="dialog-close" type="button" data-close-dialog aria-label="关闭搜索" title="关闭搜索">×</button></header>
+<div class="reader-dialog-body">
+
+<div id="site-search-ui" data-module="https://aifanqiang.ink/pagefind/pagefind-component-ui.js" data-stylesheet="https://aifanqiang.ink/pagefind/pagefind-component-ui.css" hidden>
+
+<pagefind-config bundle-path="https://aifanqiang.ink/pagefind/" base-url="https://aifanqiang.ink/" lang="zh-cn" no-worker></pagefind-config>
+<pagefind-input placeholder="搜索文章标题或正文"></pagefind-input>
+<pagefind-summary></pagefind-summary>
+<pagefind-results></pagefind-results>
+</div>
+<p id="search-status" class="search-status" role="status">正在加载搜索…</p>
+<button id="search-retry" class="button" type="button" hidden>重新加载</button>
+
+</div>
+</dialog>
+
+<script id="blog-comments-config" type="application/json">{"comments":true,"likes":true,"locale":"zh-CN","pageKey":"/p/ad03deb3-2a52-4b78-b813-25be469b0017/","pageTitle":"分流规则写了还走错？域名、后缀和顺序这样看","server":"https://upfqpobmiewm.sealosgzg.site","site":"xblog-308971b4-4ce1-43f6-885d-ba5104d6c489","views":true,"viewsBase":0}</script>
+
+</body>
+</html>

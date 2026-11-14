@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="anime">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新手指南 · 小六有点六</title>
+<meta name="description" content="用大白话讲清机场、节点、订阅和代理模式，帮助新手按步骤开始使用。">
+<meta name="keywords" content="机场入门,节点测速,代理模式,订阅安全">
+<meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://aifanqiang.ink/categories/getting-started/">
+<meta property="og:title" content="新手指南">
+<meta property="og:description" content="用大白话讲清机场、节点、订阅和代理模式，帮助新手按步骤开始使用。">
+<meta property="og:url" content="https://aifanqiang.ink/categories/getting-started/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="小六有点六">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png"><meta property="og:image:alt" content="小六有点六">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="新手指南">
+<meta name="twitter:description" content="用大白话讲清机场、节点、订阅和代理模式，帮助新手按步骤开始使用。">
+<meta name="twitter:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/categories/getting-started/#collection","@type":"CollectionPage","description":"用大白话讲清机场、节点、订阅和代理模式，帮助新手按步骤开始使用。","inLanguage":"zh-CN","mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","name":"节点写着日本，IP 却显示别处？先分清入口和出口","position":1,"url":"https://aifanqiang.ink/posts/node-ip-geolocation/"},{"@type":"ListItem","name":"机场订阅链接能发给别人吗？截图和求助前先检查","position":2,"url":"https://aifanqiang.ink/posts/subscription-link-safety/"},{"@type":"ListItem","name":"规则、全局和 TUN 怎么选？先分清两个开关在管什么","position":3,"url":"https://aifanqiang.ink/posts/rule-global-tun-guide/"},{"@type":"ListItem","name":"机场节点测速怎么看？别只盯着延迟和下载数字","position":4,"url":"https://aifanqiang.ink/posts/node-speed-test-guide/"},{"@type":"ListItem","name":"机场套餐怎么选才不浪费？流量、倍率和设备限制这样看","position":5,"url":"https://aifanqiang.ink/posts/airport-plan-checklist/"},{"@type":"ListItem","name":"机场是什么？节点、订阅和客户端，用大白话讲清楚","position":6,"url":"https://aifanqiang.ink/posts/airport-basics/"}]},"name":"新手指南","url":"https://aifanqiang.ink/categories/getting-started/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/categories/getting-started/","name":"新手指南","position":2}]}]}</script>
+
+<script>(()=>{let mode='system';try{const saved=localStorage.getItem('reader-theme');if(['system','light','dark'].includes(saved))mode=saved}catch{}const root=document.documentElement;root.dataset.colorMode=mode;root.classList.toggle('dark',mode==='dark'||(mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))})();</script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/style.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/advertisements.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/search.css"><script defer src="https://aifanqiang.ink/assets/theme/search.js"></script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/layouts.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/effects.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/skin.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/viewer.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/reader.css">
+<link rel="icon" href="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+
+<script defer src="https://aifanqiang.ink/assets/theme/theme.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/reader.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/viewer.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/image-viewer.js"></script>
+
+<script defer src="https://aifanqiang.ink/assets/theme/interactions.js"></script>
+
+<meta name="msvalidate.01" content="3D562902FFD6655EA5B649095B7D8365" />
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MF8TKHJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+
+<script defer src="https://aifanqiang.ink/assets/xblog/google-analytics.js" data-xblog-google-analytics="G-2MVRPZXCVH" data-site-hosts="aifanqiang.ink,www.aifanqiang.ink"></script></head>
+
+<body class="reader-page theme-anime">
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="https://aifanqiang.ink/"><img src="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png" alt="" width="38" height="38"><span>小六有点六</span></a>
+<nav id="site-navigation" aria-label="站点导航"><a href="https://aifanqiang.ink/">首页</a></nav>
+<a class="search-toggle" href="https://aifanqiang.ink/search/" data-open-dialog="search-dialog" aria-haspopup="dialog" aria-controls="search-dialog" aria-label="搜索" title="搜索"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></a>
+<button id="theme-mode" class="theme-toggle theme-cycle" type="button" aria-label="明暗模式：跟随系统，点击切换为明亮" title="跟随系统 · 点击切换为明亮">
+<svg class="theme-icon-system" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+<svg class="theme-icon-moon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.5A8.5 8.5 0 0 1 8.5 3.8 8.5 8.5 0 1 0 20.2 15.5Z"/></svg>
+<svg class="theme-icon-sun" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
+<span id="theme-mode-status" class="visually-hidden" role="status" aria-live="polite"></span>
+<button id="menu-toggle" class="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="打开菜单" title="打开菜单">
+<svg class="menu-icon-open" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+<svg class="menu-icon-close" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>
+</button>
+</div>
+</header>
+
+<div class="page-viewport"><div class="page-scroll">
+<main id="main" tabindex="-1" class="anime-workspace theme-workspace theme-archive">
+
+<nav class="breadcrumbs" aria-label="面包屑导航"><ol><li><a href="https://aifanqiang.ink/">小六有点六</a></li><li><span aria-current="page">新手指南</span></li></ol></nav>
+
+
+
+<div class="anime-magazine anime-archive"><section class="content-column">
+<header class="archive-header"><h1>新手指南</h1><p>用大白话讲清机场、节点、订阅和代理模式，帮助新手按步骤开始使用。</p></header>
+
+
+
+<div class="theme-list-heading">
+<span class="theme-list-title">故事放映中</span>
+<span class="theme-list-count">本页 6 篇</span>
+</div>
+<section class="article-list anime-entries" aria-label="文章列表"><article class="article-card anime-story">
+<div class="story-ribbon">
+<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/getting-started/">新手指南</a></div>
+<span class="card-index" aria-hidden="true">
+</span>
+</div>
+<h2>
+<a href="https://aifanqiang.ink/posts/node-ip-geolocation/">节点写着日本，IP 却显示别处？先分清入口和出口</a></h2>
+<p class="card-summary">节点名称、服务器入口和网站看到的出口不是一回事，IP 地区查询也可能有差异。按同一地址、同一时间比较，避免只看地区名称下结论。</p>
+<div class="story-bottom">
+<div class="card-meta">
+<span>小六</span>
+<time datetime="2026-10-07T09:12:10&#43;08:00">2026-10-07</time>
+</div>
+<a class="read-more" href="https://aifanqiang.ink/posts/node-ip-geolocation/" aria-label="阅读节点写着日本，IP 却显示别处？先分清入口和出口">翻开手账 <span aria-hidden="true">↗</span>
+</a>
+</div>
+</article><article class="article-card anime-story">
+<div class="story-ribbon">
+<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/getting-started/">新手指南</a></div>
+<span class="card-index" aria-hidden="true">
+</span>
+</div>
+<h2>
+<a href="https://aifanqiang.ink/posts/subscription-link-safety/">机场订阅链接能发给别人吗？截图和求助前先检查</a></h2>
+<p class="card-summary">订阅链接、二维码和配置可能包含专属凭据。小六整理了求助截图、在线转换和链接泄露后的处理方法，帮助你只分享必要信息。</p>
+<div class="story-bottom">
+<div class="card-meta">
+<span>小六</span>
+<time datetime="2026-09-30T00:17:19&#43;08:00">2026-09-30</time>
+</div>
+<a class="read-more" href="https://aifanqiang.ink/posts/subscription-link-safety/" aria-label="阅读机场订阅链接能发给别人吗？截图和求助前先检查">翻开手账 <span aria-hidden="true">↗</span>
+</a>
+</div>
+</article><article class="article-card anime-story">
+<div class="story-ribbon">
+<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/getting-started/">新手指南</a></div>
+<span class="card-index" aria-hidden="true">
+</span>
+</div>
+<h2>
+<a href="https://aifanqiang.ink/posts/rule-global-tun-guide/">规则、全局和 TUN 怎么选？先分清两个开关在管什么</a></h2>
+<p class="card-summary">规则与全局决定连接怎么走，系统代理与 TUN 影响哪些连接进入客户端。用新手容易理解的方式讲清差别，再按实际应用选择和验证。</p>
+<div class="story-bottom">
+<div class="card-meta">
+<span>小六</span>
+<time datetime="2026-09-30T00:17:19&#43;08:00">2026-09-30</time>
+</div>
+<a class="read-more" href="https://aifanqiang.ink/posts/rule-global-tun-guide/" aria-label="阅读规则、全局和 TUN 怎么选？先分清两个开关在管什么">翻开手账 <span aria-hidden="true">↗</span>
+</a>
+</div>
+</article><article class="article-card anime-story">
+<div class="story-ribbon">
+<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/getting-started/">新手指南</a></div>
+<span class="card-index" aria-hidden="true">
+</span>
+</div>
+<h2>
+<a href="https://aifanqiang.ink/posts/node-speed-test-guide/">机场节点测速怎么看？别只盯着延迟和下载数字</a></h2>
+<p class="card-summary">选节点既要看延迟，也要看常用应用和晚高峰表现。小六整理一套少量、可比较的测试方法，讲清 Mbps 与 MB/s，避免测速消耗过多流量。</p>
+<div class="story-bottom">
+<div class="card-meta">
+<span>小六</span>
+<time datetime="2026-09-30T00:17:19&#43;08:00">2026-09-30</time>
+</div>
+<a class="read-more" href="https://aifanqiang.ink/posts/node-speed-test-guide/" aria-label="阅读机场节点测速怎么看？别只盯着延迟和下载数字">翻开手账 <span aria-hidden="true">↗</span>
+</a>
+</div>
+</article><article class="article-card anime-story">
+<div class="story-ribbon">
+<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/getting-started/">新手指南</a></div>
+<span class="card-index" aria-hidden="true">
+</span>
+</div>
+<h2>
+<a href="https://aifanqiang.ink/posts/airport-plan-checklist/">机场套餐怎么选才不浪费？流量、倍率和设备限制这样看</a></h2>
+<p class="card-summary">选机场套餐别只看低价和节点数量。用实际用量估算需要的流量，再看倍率、重置日期、设备限制和售后条款，减少买错套餐的情况。</p>
+<div class="story-bottom">
+<div class="card-meta">
+<span>小六</span>
+<time datetime="2026-09-30T00:17:19&#43;08:00">2026-09-30</time>
+</div>
+<a class="read-more" href="https://aifanqiang.ink/posts/airport-plan-checklist/" aria-label="阅读机场套餐怎么选才不浪费？流量、倍率和设备限制这样看">翻开手账 <span aria-hidden="true">↗</span>
+</a>
+</div>
+</article><article class="article-card anime-story">
+<div class="story-ribbon">
+<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/getting-started/">新手指南</a></div>
+<span class="card-index" aria-hidden="true">
+</span>
+</div>
+<h2>
+<a href="https://aifanqiang.ink/posts/airport-basics/">机场是什么？节点、订阅和客户端，用大白话讲清楚</a></h2>
+<p class="card-summary">第一次接触机场服务，不用先背一堆术语。小六用日常例子讲清节点、订阅链接和客户端的关系，并整理从安装到正常使用的入门步骤。</p>
+<div class="story-bottom">
+<div class="card-meta">
+<span>小六</span>
+<time datetime="2026-09-30T00:17:19&#43;08:00">2026-09-30</time>
+</div>
+<a class="read-more" href="https://aifanqiang.ink/posts/airport-basics/" aria-label="阅读机场是什么？节点、订阅和客户端，用大白话讲清楚">翻开手账 <span aria-hidden="true">↗</span>
+</a>
+</div>
+</article></section>
+
+
+</section></div>
+
+</main>
+</div></div>
+
+<footer class="site-footer">
+
+<span>© 2026</span>
+</footer>
+
+
+
+<dialog id="search-dialog" class="reader-dialog site-search" aria-labelledby="search-title" data-reader-dialog data-pagefind-ignore>
+<header class="reader-dialog-header"><h2 id="search-title">搜索文章</h2><button class="dialog-close" type="button" data-close-dialog aria-label="关闭搜索" title="关闭搜索">×</button></header>
+<div class="reader-dialog-body">
+
+<div id="site-search-ui" data-module="https://aifanqiang.ink/pagefind/pagefind-component-ui.js" data-stylesheet="https://aifanqiang.ink/pagefind/pagefind-component-ui.css" hidden>
+
+<pagefind-config bundle-path="https://aifanqiang.ink/pagefind/" base-url="https://aifanqiang.ink/" lang="zh-cn" no-worker></pagefind-config>
+<pagefind-input placeholder="搜索文章标题或正文"></pagefind-input>
+<pagefind-summary></pagefind-summary>
+<pagefind-results></pagefind-results>
+</div>
+<p id="search-status" class="search-status" role="status">正在加载搜索…</p>
+<button id="search-retry" class="button" type="button" hidden>重新加载</button>
+
+</div>
+</dialog>
+
+
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="anime">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>节点能用，规则更新却失败？先看下载地址和文件格式 · 小六有点六</title>
+<meta name="description" content="规则集更新失败不等于所有节点失效。分清下载超时、网页地址用错和文件格式不匹配，再核对当前规则是否仍在正常运行。">
+<meta name="keywords" content="Mihomo规则更新失败,Clash规则集,规则下载失败,分流规则">
+<meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://aifanqiang.ink/posts/rule-provider-update-failure/">
+<meta property="og:title" content="节点能用，规则更新却失败？先看下载地址和文件格式">
+<meta property="og:description" content="规则集更新失败不等于所有节点失效。分清下载超时、网页地址用错和文件格式不匹配，再核对当前规则是否仍在正常运行。">
+<meta property="og:url" content="https://aifanqiang.ink/posts/rule-provider-update-failure/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小六有点六">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png"><meta property="og:image:alt" content="小六有点六">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="节点能用，规则更新却失败？先看下载地址和文件格式">
+<meta name="twitter:description" content="规则集更新失败不等于所有节点失效。分清下载超时、网页地址用错和文件格式不匹配，再核对当前规则是否仍在正常运行。">
+<meta name="twitter:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<meta name="author" content="小六"><meta property="article:published_time" content="2026-10-06T09:20:28&#43;08:00"><meta property="article:modified_time" content="2026-11-14T14:03:25&#43;08:00"><meta property="article:tag" content="订阅管理"><meta property="article:tag" content="使用排障">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/posts/rule-provider-update-failure/#article","@type":"BlogPosting","author":{"@type":"Person","name":"小六"},"dateModified":"2026-11-14T14:03:25+08:00","datePublished":"2026-10-06T09:20:28+08:00","description":"规则集更新失败不等于所有节点失效。分清下载超时、网页地址用错和文件格式不匹配，再核对当前规则是否仍在正常运行。","headline":"节点能用，规则更新却失败？先看下载地址和文件格式","inLanguage":"zh-CN","mainEntityOfPage":{"@id":"https://aifanqiang.ink/posts/rule-provider-update-failure/","@type":"WebPage"},"url":"https://aifanqiang.ink/posts/rule-provider-update-failure/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/posts/rule-provider-update-failure/","name":"节点能用，规则更新却失败？先看下载地址和文件格式","position":2}]}]}</script>
+
+<script>(()=>{let mode='system';try{const saved=localStorage.getItem('reader-theme');if(['system','light','dark'].includes(saved))mode=saved}catch{}const root=document.documentElement;root.dataset.colorMode=mode;root.classList.toggle('dark',mode==='dark'||(mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))})();</script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/style.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/advertisements.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/search.css"><script defer src="https://aifanqiang.ink/assets/theme/search.js"></script>
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/layouts.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/effects.css"><link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/skin.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/viewer.css">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/reader.css">
+<link rel="icon" href="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
+<link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/artalk.css"><script defer src="https://aifanqiang.ink/assets/theme/artalk.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/theme.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/reader.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/viewer.js"></script>
+<script defer src="https://aifanqiang.ink/assets/theme/image-viewer.js"></script>
+
+<script defer src="https://aifanqiang.ink/assets/theme/interactions.js"></script>
+
+<meta name="msvalidate.01" content="3D562902FFD6655EA5B649095B7D8365" />
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MF8TKHJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+
+<script defer src="https://aifanqiang.ink/assets/xblog/google-analytics.js" data-xblog-google-analytics="G-2MVRPZXCVH" data-site-hosts="aifanqiang.ink,www.aifanqiang.ink"></script></head>
+
+<body class="reader-page theme-anime article-page">
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="https://aifanqiang.ink/"><img src="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png" alt="" width="38" height="38"><span>小六有点六</span></a>
+<nav id="site-navigation" aria-label="站点导航"><a href="https://aifanqiang.ink/">首页</a></nav>
+<a class="search-toggle" href="https://aifanqiang.ink/search/" data-open-dialog="search-dialog" aria-haspopup="dialog" aria-controls="search-dialog" aria-label="搜索" title="搜索"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></a>
+<button id="theme-mode" class="theme-toggle theme-cycle" type="button" aria-label="明暗模式：跟随系统，点击切换为明亮" title="跟随系统 · 点击切换为明亮">
+<svg class="theme-icon-system" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+<svg class="theme-icon-moon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.5A8.5 8.5 0 0 1 8.5 3.8 8.5 8.5 0 1 0 20.2 15.5Z"/></svg>
+<svg class="theme-icon-sun" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
+<span id="theme-mode-status" class="visually-hidden" role="status" aria-live="polite"></span>
+<button id="menu-toggle" class="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="打开菜单" title="打开菜单">
+<svg class="menu-icon-open" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+<svg class="menu-icon-close" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>
+</button>
+</div>
+</header>
+
+<div class="page-viewport article-viewport"><div class="page-scroll article-scroll">
+<main id="main" tabindex="-1" class="anime-workspace theme-workspace theme-article">
+
+<nav class="breadcrumbs" aria-label="面包屑导航"><ol><li><a href="https://aifanqiang.ink/">小六有点六</a></li><li><span aria-current="page">节点能用，规则更新却失败？先看下载地址和文件格式</span></li></ol></nav>
+
+
+<div class="anime-letter"><div class="letter-paper">
+<article data-pagefind-body>
+<header class="article-header">
+<div class="eyebrow" data-pagefind-ignore>
+手账正文</div>
+<h1 data-pagefind-meta="title">节点能用，规则更新却失败？先看下载地址和文件格式</h1>
+<div class="metadata" data-pagefind-ignore><span>小六</span><time datetime="2026-10-06T09:20:28&#43;08:00">2026-10-06</time><span><span id="page-views">—</span> 次阅读</span></div>
+<div class="chips" data-pagefind-ignore><a href="https://aifanqiang.ink/categories/client-guides/">客户端教程</a></div>
+</header>
+<div class="prose"><p>节点还能正常上网，客户端却一直提示规则集更新失败。两者并不矛盾：节点负责连接，规则负责决定哪些请求怎么走，更新它们也可能用不同的地址。</p>
+<h2 id="heading">先找到失败的是哪一份规则</h2>
+<p>看日志中的名称、时间和错误。客户端可能加载了不止一份规则，某一份更新失败，也不代表其他规则全部失效。</p>
+<p>先保存当前配置，查看哪些目标的访问方式真的变了。不要为了消掉一个提示，就把所有本地文件和缓存删掉。</p>
+<h2 id="heading-1">地址能打开，不等于内容能用</h2>
+<p>有些链接打开的是展示文件的网页，客户端需要的却是规则原文。浏览器能看到内容，不能证明客户端下载到的是正确文件。</p>
+<p>如果收到 404，核对维护者是否换了地址；如果超时，检查下载时走的网络；如果返回登录页或验证页，要先解决访问问题。</p>
+<h2 id="heading-2">格式也要和配置对得上</h2>
+<p>Mihomo 的规则集合有不同内容类型和文件格式。下载成功之后，软件仍需要按正确方式读取；格式不匹配，也会报错。</p>
+<p>普通用户先使用维护者给出的完整配置说明，别只看到文件后缀相似就替换地址，也别把别的客户端规则直接塞进来。</p>
+<h2 id="heading-3">最后检查有没有真正生效</h2>
+<p>确认更新成功后，重新加载配置，再访问一个受这份规则影响的目标，查看实际命中的规则与出口。</p>
+<p>如果还失败，把规则名称、错误类型、客户端版本和时间整理出来。包含令牌的完整下载地址不要公开。保留旧配置，才能在改动无效时恢复正常使用。</p>
+<h2 id="heading-4">接着看</h2>
+<ul>
+<li><a href="https://aifanqiang.ink/posts/subscription-custom-rules/">Clash Verge Rev 更新订阅后规则丢了？这样保存自己的设置</a></li>
+<li><a href="https://aifanqiang.ink/posts/domain-rule-matching/">分流规则写了还走错？域名、后缀和顺序这样看</a></li>
+<li><a href="https://aifanqiang.ink/posts/subscription-update-errors/">机场订阅更新失败怎么办？看懂 401、404 和 429</a></li>
+</ul>
+<h2 id="heading-5">资料参考</h2>
+<ul>
+<li><a href="https://wiki.metacubex.one/config/rule-providers/">官方规则集合文档</a></li>
+<li><a href="https://wiki.metacubex.one/config/rule-providers/content/">规则集合内容说明</a></li>
+</ul>
+</div>
+<div class="article-likes" data-pagefind-ignore>
+<button id="page-like" class="like-button" type="button" aria-pressed="false" aria-describedby="page-like-message" disabled>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+<span id="page-like-label">点赞</span><span id="page-like-count">—</span>
+</button><p id="page-like-message" role="status"></p>
+</div>
+<div class="article-tags" data-pagefind-ignore><a href="https://aifanqiang.ink/tags/subscription-management/"># 订阅管理</a><a href="https://aifanqiang.ink/tags/troubleshooting/"># 使用排障</a></div>
+<nav class="pagination" aria-label="相邻文章" data-pagefind-ignore><a href="https://aifanqiang.ink/posts/windows-app-loopback-proxy/">← 上一篇</a><a href="https://aifanqiang.ink/posts/subscription-format-compatibility/">下一篇 →</a></nav>
+<section class="comments-section" data-pagefind-ignore><h2>评论</h2><div id="comments"></div></section>
+</article>
+</div><div class="article-rail">
+<aside class="toc"><div>本篇目录</div><nav aria-label="文章目录"><a class="level-2" href="#heading">先找到失败的是哪一份规则</a><a class="level-2" href="#heading-1">地址能打开，不等于内容能用</a><a class="level-2" href="#heading-2">格式也要和配置对得上</a><a class="level-2" href="#heading-3">最后检查有没有真正生效</a><a class="level-2" href="#heading-4">接着看</a><a class="level-2" href="#heading-5">资料参考</a></nav></aside>
+</div></div>
+
+</main>
+</div>
+<button id="back-to-top" class="back-to-top" type="button" aria-label="返回顶部" title="返回顶部" hidden>
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14M12 20V8m-5 5 5-5 5 5"/></svg>
+</button>
+</div>
+
+<footer class="site-footer">
+
+<span>© 2026</span>
+</footer>
+
+
+
+<dialog id="search-dialog" class="reader-dialog site-search" aria-labelledby="search-title" data-reader-dialog data-pagefind-ignore>
+<header class="reader-dialog-header"><h2 id="search-title">搜索文章</h2><button class="dialog-close" type="button" data-close-dialog aria-label="关闭搜索" title="关闭搜索">×</button></header>
+<div class="reader-dialog-body">
+
+<div id="site-search-ui" data-module="https://aifanqiang.ink/pagefind/pagefind-component-ui.js" data-stylesheet="https://aifanqiang.ink/pagefind/pagefind-component-ui.css" hidden>
+
+<pagefind-config bundle-path="https://aifanqiang.ink/pagefind/" base-url="https://aifanqiang.ink/" lang="zh-cn" no-worker></pagefind-config>
+<pagefind-input placeholder="搜索文章标题或正文"></pagefind-input>
+<pagefind-summary></pagefind-summary>
+<pagefind-results></pagefind-results>
+</div>
+<p id="search-status" class="search-status" role="status">正在加载搜索…</p>
+<button id="search-retry" class="button" type="button" hidden>重新加载</button>
+
+</div>
+</dialog>
+
+<script id="blog-comments-config" type="application/json">{"comments":true,"likes":true,"locale":"zh-CN","pageKey":"/p/ec74ec25-a796-41eb-94f6-fffac79e7aa1/","pageTitle":"节点能用，规则更新却失败？先看下载地址和文件格式","server":"https://upfqpobmiewm.sealosgzg.site","site":"xblog-308971b4-4ce1-43f6-885d-ba5104d6c489","views":true,"viewsBase":0}</script>
+
+</body>
+</html>
