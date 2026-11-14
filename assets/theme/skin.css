@@ -1,0 +1,311 @@
+/* 二次元：左侧手账索引、拼贴封面和双栏故事卡。装饰均脱离交互层。 */
+:root {
+  --bg: #faf5fb;
+  --surface: #fffdfd;
+  --text: #453547;
+  --muted: #806e83;
+  --line: #e6d6e6;
+  --accent: #ae447d;
+  --soft: #f7e8f0;
+  --code: #f0e9f5;
+  --scrollbar: #c8b1ce;
+  --radius: 18px;
+  --anime-sky: #e8f2fa;
+  --anime-yellow: #f9e6ac;
+  --anime-grid: #eadbea;
+}
+:root.dark {
+  --bg: #1b1723;
+  --surface: #27202f;
+  --text: #f3e7f2;
+  --muted: #bdabc5;
+  --line: #4a3650;
+  --accent: #f1acd0;
+  --soft: #3a2940;
+  --code: #302338;
+  --scrollbar: #6b4e77;
+  --anime-sky: #25374b;
+  --anime-yellow: #68543b;
+  --anime-grid: #312334;
+}
+.theme-anime {
+  background-image: radial-gradient(var(--anime-grid) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+.theme-anime .site-header {
+  background: var(--surface);
+  border-top: 4px solid var(--accent);
+}
+.theme-anime .header-inner {
+  max-width: 1360px;
+  min-height: 72px;
+}
+.theme-anime .brand {
+  letter-spacing: 1px;
+}
+.anime-workspace {
+  max-width: 1300px;
+  padding-top: 28px;
+}
+.anime-cover {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 32px;
+  align-items: center;
+  min-height: 270px;
+  padding: 32px 48px;
+  margin: 0 0 40px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 28px 28px 70px 28px;
+  box-shadow: 0 9px 0 var(--soft);
+}
+.anime-cover::before {
+  content: "";
+  position: absolute;
+  left: 38px;
+  top: -8px;
+  width: 100px;
+  height: 22px;
+  background: var(--anime-yellow);
+  transform: rotate(-5deg);
+  opacity: 0.85;
+  pointer-events: none;
+}
+.anime-cover h1 {
+  font-size: clamp(32px, 4vw, 56px);
+  letter-spacing: 0.04em;
+}
+.anime-cover .intro-kicker {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  background: var(--soft);
+}
+.anime-illustration {
+  display: block;
+  width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  border-radius: 20px;
+}
+.anime-stamp {
+  position: absolute;
+  right: 24px;
+  bottom: 18px;
+  padding: 8px 12px;
+  border: 2px dashed var(--accent);
+  color: var(--accent);
+  font-size: 11px;
+  line-height: 1.5;
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+.anime-magazine {
+  display: grid;
+  grid-template-columns: 224px minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+}
+.anime-magazine > .content-column {
+  grid-column: 2;
+  grid-row: 1;
+}
+.anime-magazine > .home-rail {
+  grid-column: 1;
+  grid-row: 1;
+}
+.anime-workspace .home-rail {
+  padding: 20px;
+  border: 1px dashed var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  gap: 22px;
+}
+.anime-workspace .sidebar-section h2 {
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+.anime-workspace .category-list a {
+  font-size: 13px;
+}
+.anime-workspace .theme-list-heading {
+  padding: 0 2px 12px;
+  border-bottom: 2px dashed var(--line);
+  margin-bottom: 24px;
+}
+.anime-entries {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.anime-entries .anime-story {
+  position: relative;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: 4px 5px 0 var(--soft);
+  display: flex;
+  flex-direction: column;
+}
+.anime-story::before {
+  content: "";
+  position: absolute;
+  width: 55px;
+  height: 16px;
+  left: calc(50% - 27px);
+  top: -7px;
+  background: var(--anime-yellow);
+  transform: rotate(-4deg);
+  opacity: 0.8;
+  pointer-events: none;
+}
+.anime-story:nth-child(2n)::before {
+  background: var(--anime-sky);
+  transform: rotate(4deg);
+}
+.anime-story:first-child {
+  grid-column: 1 / -1;
+  background: var(--anime-sky);
+  padding: 32px;
+}
+.anime-story:first-child h2 {
+  font-size: 30px;
+  max-width: 24em;
+}
+.anime-story h2 {
+  font-size: 23px;
+  font-weight: 700;
+}
+.story-ribbon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.story-ribbon .card-index {
+  color: var(--accent);
+  font-size: 12px;
+}
+.story-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+.anime-letter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 232px;
+  gap: 40px;
+  align-items: start;
+}
+.letter-paper {
+  padding: 40px 48px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: 6px 8px 0 var(--soft);
+}
+.anime-letter .article-rail {
+  padding: 18px;
+  border: 1px dashed var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+}
+.anime-workspace .article-header h1 {
+  font-size: clamp(30px, 3vw, 43px);
+}
+.anime-workspace .prose h2 {
+  border-bottom: 2px dashed var(--line);
+  padding-bottom: 10px;
+}
+.anime-workspace .ad-card {
+  border-style: dashed;
+  box-shadow: none;
+}
+.theme-anime .site-footer {
+  border-top: 2px dashed var(--line);
+}
+@media (max-width: 1100px) {
+  .anime-magazine {
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 24px;
+  }
+  .anime-entries {
+    gap: 18px;
+  }
+  .anime-entries .anime-story {
+    padding: 22px;
+  }
+  .anime-letter {
+    gap: 24px;
+  }
+  .letter-paper {
+    padding: 30px;
+  }
+}
+@media (max-width: 980px) {
+  .anime-entries {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .anime-letter {
+    display: block;
+  }
+}
+@media (max-width: 760px) {
+  .anime-cover {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 24px;
+    gap: 14px;
+    border-radius: 20px 20px 40px 20px;
+  }
+  .anime-cover h1 {
+    font-size: 32px;
+  }
+  .anime-illustration {
+    max-height: 170px;
+  }
+  .anime-stamp {
+    font-size: 10px;
+    right: 12px;
+    bottom: 12px;
+  }
+  .anime-magazine {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .anime-magazine > .content-column,
+  .anime-magazine > .home-rail {
+    width: 100%;
+  }
+  .anime-workspace .home-rail {
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+  .anime-entries .anime-story {
+    padding: 24px;
+  }
+  .anime-story:first-child h2 {
+    font-size: 25px;
+  }
+  .letter-paper {
+    padding: 24px 20px;
+  }
+  .anime-letter .article-rail {
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+}
+.anime-magazine.anime-archive {
+  display: block;
+  max-width: 1040px;
+  margin: 0 auto;
+}
