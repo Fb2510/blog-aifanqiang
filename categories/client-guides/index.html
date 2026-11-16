@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="整理 Windows、安卓、Mac 等设备上的客户端设置与常见问题，配合简单步骤理解原理。">
 <meta name="twitter:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/categories/client-guides/#collection","@type":"CollectionPage","description":"整理 Windows、安卓、Mac 等设备上的客户端设置与常见问题，配合简单步骤理解原理。","inLanguage":"zh-CN","mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","name":"npm ping 正常，安装还是超时？查真正下载的地址","position":1,"url":"https://aifanqiang.ink/posts/npm-ping-install-timeout/"},{"@type":"ListItem","name":"网页出错怎么导出 HAR？抓取步骤和分享前检查","position":2,"url":"https://aifanqiang.ink/posts/har-export-privacy-checklist/"},{"@type":"ListItem","name":"域名嗅探要不要开？先看它能帮什么忙","position":3,"url":"https://aifanqiang.ink/posts/domain-sniffing-checklist/"},{"@type":"ListItem","name":"NO_PROXY 不生效？先看你排除的是哪个目标","position":4,"url":"https://aifanqiang.ink/posts/no-proxy-host-matching/"},{"@type":"ListItem","name":"代理客户端安装包怎么选？x64、ARM64 和校验值这样看","position":5,"url":"https://aifanqiang.ink/posts/client-package-architecture-checksum/"},{"@type":"ListItem","name":"Mac 上 Wi-Fi 能用代理，插网线就不行？分别检查网络设置","position":6,"url":"https://aifanqiang.ink/posts/macos-proxy-network-services/"},{"@type":"ListItem","name":"分流规则写了还走错？域名、后缀和顺序这样看","position":7,"url":"https://aifanqiang.ink/posts/domain-rule-matching/"},{"@type":"ListItem","name":"浏览器正常，后台任务却联网失败？先查运行时间和账号","position":8,"url":"https://aifanqiang.ink/posts/background-task-winhttp-proxy/"},{"@type":"ListItem","name":"iPhone Safari 的 IP 和节点不同？看看私密转送","position":9,"url":"https://aifanqiang.ink/posts/safari-private-relay-proxy/"},{"@type":"ListItem","name":"PAC 自动代理不生效？先确认脚本下载成功","position":10,"url":"https://aifanqiang.ink/posts/pac-proxy-troubleshooting/"}]},"name":"客户端教程","url":"https://aifanqiang.ink/categories/client-guides/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/categories/client-guides/","name":"客户端教程","position":2}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/categories/client-guides/#collection","@type":"CollectionPage","description":"整理 Windows、安卓、Mac 等设备上的客户端设置与常见问题，配合简单步骤理解原理。","inLanguage":"zh-CN","mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","name":"电脑连手机热点，流量用得快怎么办？Windows 11 省流量设置","position":1,"url":"https://aifanqiang.ink/posts/daily-2026-11-16-windows-hotspot-data-saving/"},{"@type":"ListItem","name":"npm ping 正常，安装还是超时？查真正下载的地址","position":2,"url":"https://aifanqiang.ink/posts/npm-ping-install-timeout/"},{"@type":"ListItem","name":"网页出错怎么导出 HAR？抓取步骤和分享前检查","position":3,"url":"https://aifanqiang.ink/posts/har-export-privacy-checklist/"},{"@type":"ListItem","name":"域名嗅探要不要开？先看它能帮什么忙","position":4,"url":"https://aifanqiang.ink/posts/domain-sniffing-checklist/"},{"@type":"ListItem","name":"NO_PROXY 不生效？先看你排除的是哪个目标","position":5,"url":"https://aifanqiang.ink/posts/no-proxy-host-matching/"},{"@type":"ListItem","name":"代理客户端安装包怎么选？x64、ARM64 和校验值这样看","position":6,"url":"https://aifanqiang.ink/posts/client-package-architecture-checksum/"},{"@type":"ListItem","name":"Mac 上 Wi-Fi 能用代理，插网线就不行？分别检查网络设置","position":7,"url":"https://aifanqiang.ink/posts/macos-proxy-network-services/"},{"@type":"ListItem","name":"分流规则写了还走错？域名、后缀和顺序这样看","position":8,"url":"https://aifanqiang.ink/posts/domain-rule-matching/"},{"@type":"ListItem","name":"浏览器正常，后台任务却联网失败？先查运行时间和账号","position":9,"url":"https://aifanqiang.ink/posts/background-task-winhttp-proxy/"},{"@type":"ListItem","name":"iPhone Safari 的 IP 和节点不同？看看私密转送","position":10,"url":"https://aifanqiang.ink/posts/safari-private-relay-proxy/"}]},"name":"客户端教程","url":"https://aifanqiang.ink/categories/client-guides/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/categories/client-guides/","name":"客户端教程","position":2}]}]}</script>
 
 <script>(()=>{let mode='system';try{const saved=localStorage.getItem('reader-theme');if(['system','light','dark'].includes(saved))mode=saved}catch{}const root=document.documentElement;root.dataset.colorMode=mode;root.classList.toggle('dark',mode==='dark'||(mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))})();</script>
 <link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/style.css">
@@ -86,6 +86,23 @@
 <span class="theme-list-count">本页 10 篇</span>
 </div>
 <section class="article-list anime-entries" aria-label="文章列表"><article class="article-card anime-story">
+<div class="story-ribbon">
+<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/client-guides/">客户端教程</a></div>
+<span class="card-index" aria-hidden="true">
+</span>
+</div>
+<h2>
+<a href="https://aifanqiang.ink/posts/daily-2026-11-16-windows-hotspot-data-saving/">电脑连手机热点，流量用得快怎么办？Windows 11 省流量设置</a></h2>
+<p class="card-summary">电脑连手机热点后流量用得快，先检查后台下载和同步。小六按 Windows 11 说明计费连接、流量提醒和 OneDrive 暂停方法，并讲清手机流量与机场用量的区别。</p>
+<div class="story-bottom">
+<div class="card-meta">
+<span>小六</span>
+<time datetime="2026-11-16T10:10:20&#43;08:00">2026-11-16</time>
+</div>
+<a class="read-more" href="https://aifanqiang.ink/posts/daily-2026-11-16-windows-hotspot-data-saving/" aria-label="阅读电脑连手机热点，流量用得快怎么办？Windows 11 省流量设置">翻开手账 <span aria-hidden="true">↗</span>
+</a>
+</div>
+</article><article class="article-card anime-story">
 <div class="story-ribbon">
 <div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/client-guides/">客户端教程</a></div>
 <span class="card-index" aria-hidden="true">
@@ -236,23 +253,6 @@
 <time datetime="2026-10-14T00:48:07&#43;08:00">2026-10-14</time>
 </div>
 <a class="read-more" href="https://aifanqiang.ink/posts/safari-private-relay-proxy/" aria-label="阅读iPhone Safari 的 IP 和节点不同？看看私密转送">翻开手账 <span aria-hidden="true">↗</span>
-</a>
-</div>
-</article><article class="article-card anime-story">
-<div class="story-ribbon">
-<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/client-guides/">客户端教程</a></div>
-<span class="card-index" aria-hidden="true">
-</span>
-</div>
-<h2>
-<a href="https://aifanqiang.ink/posts/pac-proxy-troubleshooting/">PAC 自动代理不生效？先确认脚本下载成功</a></h2>
-<p class="card-summary">PAC 是按网址决定连接方式的脚本，不是机场订阅链接。先核对设置来源和下载结果，再判断 DIRECT 是否符合规则，最后检查代理入口。</p>
-<div class="story-bottom">
-<div class="card-meta">
-<span>小六</span>
-<time datetime="2026-10-12T09:10:12&#43;08:00">2026-10-12</time>
-</div>
-<a class="read-more" href="https://aifanqiang.ink/posts/pac-proxy-troubleshooting/" aria-label="阅读PAC 自动代理不生效？先确认脚本下载成功">翻开手账 <span aria-hidden="true">↗</span>
 </a>
 </div>
 </article></section>
