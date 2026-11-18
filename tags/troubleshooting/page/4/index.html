@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="根据错误提示和实际现象检查代理与网络连接问题。">
 <meta name="twitter:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/tags/troubleshooting/page/4/#collection","@type":"CollectionPage","description":"根据错误提示和实际现象检查代理与网络连接问题。","inLanguage":"zh-CN","mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","name":"Docker 容器不能上网？先分清镜像拉取和容器代理","position":1,"url":"https://aifanqiang.ink/posts/docker-container-proxy/"},{"@type":"ListItem","name":"Mihomo 面板显示断开，节点还能用？检查控制地址和密钥","position":2,"url":"https://aifanqiang.ink/posts/mihomo-dashboard-connection/"},{"@type":"ListItem","name":"Windows 代理正常，WSL2 却连不上？先看 localhost 指向谁","position":3,"url":"https://aifanqiang.ink/posts/wsl2-windows-proxy/"},{"@type":"ListItem","name":"安卓分应用代理怎么选？先看“包含”还是“排除”","position":4,"url":"https://aifanqiang.ink/posts/android-per-app-proxy/"},{"@type":"ListItem","name":"代理报 407 是什么意思？先别拿网站密码去试","position":5,"url":"https://aifanqiang.ink/posts/proxy-authentication-407/"},{"@type":"ListItem","name":"手机怎么用电脑上的代理？地址、端口和网络要对应","position":6,"url":"https://aifanqiang.ink/posts/lan-proxy-sharing/"},{"@type":"ListItem","name":"安卓手机一锁屏就断代理？先查后台和 VPN 状态","position":7,"url":"https://aifanqiang.ink/posts/android-screen-off-proxy/"},{"@type":"ListItem","name":"系统代理开着，Chrome 却没走？检查代理扩展","position":8,"url":"https://aifanqiang.ink/posts/chrome-proxy-extension-conflicts/"},{"@type":"ListItem","name":"浏览器能访问，Git 克隆却失败？先看仓库地址类型","position":9,"url":"https://aifanqiang.ink/posts/git-proxy-transport/"},{"@type":"ListItem","name":"酒店 Wi-Fi 登录页打不开？先认证网络，再开代理","position":10,"url":"https://aifanqiang.ink/posts/captive-portal-proxy/"}]},"name":"使用排障 · 第 4 页","url":"https://aifanqiang.ink/tags/troubleshooting/page/4/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/tags/troubleshooting/","name":"使用排障","position":2},{"@type":"ListItem","item":"https://aifanqiang.ink/tags/troubleshooting/page/4/","name":"第 4 页","position":3}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/tags/troubleshooting/page/4/#collection","@type":"CollectionPage","description":"根据错误提示和实际现象检查代理与网络连接问题。","inLanguage":"zh-CN","mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","name":"PAC 自动代理不生效？先确认脚本下载成功","position":1,"url":"https://aifanqiang.ink/posts/pac-proxy-troubleshooting/"},{"@type":"ListItem","name":"Docker 容器不能上网？先分清镜像拉取和容器代理","position":2,"url":"https://aifanqiang.ink/posts/docker-container-proxy/"},{"@type":"ListItem","name":"Mihomo 面板显示断开，节点还能用？检查控制地址和密钥","position":3,"url":"https://aifanqiang.ink/posts/mihomo-dashboard-connection/"},{"@type":"ListItem","name":"Windows 代理正常，WSL2 却连不上？先看 localhost 指向谁","position":4,"url":"https://aifanqiang.ink/posts/wsl2-windows-proxy/"},{"@type":"ListItem","name":"安卓分应用代理怎么选？先看“包含”还是“排除”","position":5,"url":"https://aifanqiang.ink/posts/android-per-app-proxy/"},{"@type":"ListItem","name":"代理报 407 是什么意思？先别拿网站密码去试","position":6,"url":"https://aifanqiang.ink/posts/proxy-authentication-407/"},{"@type":"ListItem","name":"手机怎么用电脑上的代理？地址、端口和网络要对应","position":7,"url":"https://aifanqiang.ink/posts/lan-proxy-sharing/"},{"@type":"ListItem","name":"安卓手机一锁屏就断代理？先查后台和 VPN 状态","position":8,"url":"https://aifanqiang.ink/posts/android-screen-off-proxy/"},{"@type":"ListItem","name":"系统代理开着，Chrome 却没走？检查代理扩展","position":9,"url":"https://aifanqiang.ink/posts/chrome-proxy-extension-conflicts/"},{"@type":"ListItem","name":"浏览器能访问，Git 克隆却失败？先看仓库地址类型","position":10,"url":"https://aifanqiang.ink/posts/git-proxy-transport/"}]},"name":"使用排障 · 第 4 页","url":"https://aifanqiang.ink/tags/troubleshooting/page/4/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/tags/troubleshooting/","name":"使用排障","position":2},{"@type":"ListItem","item":"https://aifanqiang.ink/tags/troubleshooting/page/4/","name":"第 4 页","position":3}]}]}</script>
 
 <script>(()=>{let mode='system';try{const saved=localStorage.getItem('reader-theme');if(['system','light','dark'].includes(saved))mode=saved}catch{}const root=document.documentElement;root.dataset.colorMode=mode;root.classList.toggle('dark',mode==='dark'||(mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))})();</script>
 <link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/style.css">
@@ -86,6 +86,23 @@
 <span class="theme-list-count">本页 10 篇</span>
 </div>
 <section class="article-list anime-entries" aria-label="文章列表"><article class="article-card anime-story">
+<div class="story-ribbon">
+<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/client-guides/">客户端教程</a></div>
+<span class="card-index" aria-hidden="true">
+</span>
+</div>
+<h2>
+<a href="https://aifanqiang.ink/posts/pac-proxy-troubleshooting/">PAC 自动代理不生效？先确认脚本下载成功</a></h2>
+<p class="card-summary">PAC 是按网址决定连接方式的脚本，不是机场订阅链接。先核对设置来源和下载结果，再判断 DIRECT 是否符合规则，最后检查代理入口。</p>
+<div class="story-bottom">
+<div class="card-meta">
+<span>小六</span>
+<time datetime="2026-10-12T09:10:12&#43;08:00">2026-10-12</time>
+</div>
+<a class="read-more" href="https://aifanqiang.ink/posts/pac-proxy-troubleshooting/" aria-label="阅读PAC 自动代理不生效？先确认脚本下载成功">翻开手账 <span aria-hidden="true">↗</span>
+</a>
+</div>
+</article><article class="article-card anime-story">
 <div class="story-ribbon">
 <div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/client-guides/">客户端教程</a></div>
 <span class="card-index" aria-hidden="true">
@@ -236,23 +253,6 @@
 <time datetime="2026-10-08T09:12:27&#43;08:00">2026-10-08</time>
 </div>
 <a class="read-more" href="https://aifanqiang.ink/posts/git-proxy-transport/" aria-label="阅读浏览器能访问，Git 克隆却失败？先看仓库地址类型">翻开手账 <span aria-hidden="true">↗</span>
-</a>
-</div>
-</article><article class="article-card anime-story">
-<div class="story-ribbon">
-<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/troubleshooting/">网络排障</a></div>
-<span class="card-index" aria-hidden="true">
-</span>
-</div>
-<h2>
-<a href="https://aifanqiang.ink/posts/captive-portal-proxy/">酒店 Wi-Fi 登录页打不开？先认证网络，再开代理</a></h2>
-<p class="card-summary">连上酒店或机场 Wi-Fi 后节点全超时，先看网络是否还没完成登录。用场所提供的认证入口接入，再恢复客户端，减少无效测速和订阅刷新。</p>
-<div class="story-bottom">
-<div class="card-meta">
-<span>小六</span>
-<time datetime="2026-10-07T09:12:23&#43;08:00">2026-10-07</time>
-</div>
-<a class="read-more" href="https://aifanqiang.ink/posts/captive-portal-proxy/" aria-label="阅读酒店 Wi-Fi 登录页打不开？先认证网络，再开代理">翻开手账 <span aria-hidden="true">↗</span>
 </a>
 </div>
 </article></section>

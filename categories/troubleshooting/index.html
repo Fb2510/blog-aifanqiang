@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="网页打不开、连接超时、视频卡顿时，按现象逐项检查网络和代理设置。">
 <meta name="twitter:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/categories/troubleshooting/#collection","@type":"CollectionPage","description":"网页打不开、连接超时、视频卡顿时，按现象逐项检查网络和代理设置。","inLanguage":"zh-CN","mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","name":"Wi-Fi 满格但网速慢？先分清家里网络和机场节点","position":1,"url":"https://aifanqiang.ink/posts/daily-2026-11-17-wifi-signal-slow-proxy-check/"},{"@type":"ListItem","name":"开代理后公司内网名字打不开？先试完整域名","position":2,"url":"https://aifanqiang.ink/posts/windows-dns-short-names/"},{"@type":"ListItem","name":"看到 200 Connection established，为什么网页还打不开？","position":3,"url":"https://aifanqiang.ink/posts/http-connect-200/"},{"@type":"ListItem","name":"网页提示 CORS 错误？哪些自己能查，哪些要网站修","position":4,"url":"https://aifanqiang.ink/posts/cors-preflight-errors/"},{"@type":"ListItem","name":"节点测速很快，视频还是卡？先分清转圈和掉帧","position":5,"url":"https://aifanqiang.ink/posts/video-buffering-dropped-frames/"},{"@type":"ListItem","name":"tracert 里全是星号，就是丢包吗？别只看中间一行","position":6,"url":"https://aifanqiang.ink/posts/tracert-timeout-path/"},{"@type":"ListItem","name":"开代理后网页一直转圈？先确认是不是 HTTP/3 请求","position":7,"url":"https://aifanqiang.ink/posts/http3-quic-path/"},{"@type":"ListItem","name":"WebRTC 检测显示另一个 IP，就是泄漏吗？先看地址类型","position":8,"url":"https://aifanqiang.ink/posts/webrtc-candidate-path/"},{"@type":"ListItem","name":"DNS 报错怎么处理？“没有这个名字”和“没等到回复”不同","position":9,"url":"https://aifanqiang.ink/posts/dns-error-codes/"},{"@type":"ListItem","name":"网页能开，聊天却一直重连？检查 WebSocket 连接","position":10,"url":"https://aifanqiang.ink/posts/websocket-handshake-disconnect/"}]},"name":"网络排障","url":"https://aifanqiang.ink/categories/troubleshooting/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/categories/troubleshooting/","name":"网络排障","position":2}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/categories/troubleshooting/#collection","@type":"CollectionPage","description":"网页打不开、连接超时、视频卡顿时，按现象逐项检查网络和代理设置。","inLanguage":"zh-CN","mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","name":"ChatGPT 一直转圈怎么办？从服务状态到浏览器这样排查","position":1,"url":"https://aifanqiang.ink/posts/daily-2026-11-18-chatgpt-stuck-loading-check/"},{"@type":"ListItem","name":"Wi-Fi 满格但网速慢？先分清家里网络和机场节点","position":2,"url":"https://aifanqiang.ink/posts/daily-2026-11-17-wifi-signal-slow-proxy-check/"},{"@type":"ListItem","name":"开代理后公司内网名字打不开？先试完整域名","position":3,"url":"https://aifanqiang.ink/posts/windows-dns-short-names/"},{"@type":"ListItem","name":"看到 200 Connection established，为什么网页还打不开？","position":4,"url":"https://aifanqiang.ink/posts/http-connect-200/"},{"@type":"ListItem","name":"网页提示 CORS 错误？哪些自己能查，哪些要网站修","position":5,"url":"https://aifanqiang.ink/posts/cors-preflight-errors/"},{"@type":"ListItem","name":"节点测速很快，视频还是卡？先分清转圈和掉帧","position":6,"url":"https://aifanqiang.ink/posts/video-buffering-dropped-frames/"},{"@type":"ListItem","name":"tracert 里全是星号，就是丢包吗？别只看中间一行","position":7,"url":"https://aifanqiang.ink/posts/tracert-timeout-path/"},{"@type":"ListItem","name":"开代理后网页一直转圈？先确认是不是 HTTP/3 请求","position":8,"url":"https://aifanqiang.ink/posts/http3-quic-path/"},{"@type":"ListItem","name":"WebRTC 检测显示另一个 IP，就是泄漏吗？先看地址类型","position":9,"url":"https://aifanqiang.ink/posts/webrtc-candidate-path/"},{"@type":"ListItem","name":"DNS 报错怎么处理？“没有这个名字”和“没等到回复”不同","position":10,"url":"https://aifanqiang.ink/posts/dns-error-codes/"}]},"name":"网络排障","url":"https://aifanqiang.ink/categories/troubleshooting/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/categories/troubleshooting/","name":"网络排障","position":2}]}]}</script>
 
 <script>(()=>{let mode='system';try{const saved=localStorage.getItem('reader-theme');if(['system','light','dark'].includes(saved))mode=saved}catch{}const root=document.documentElement;root.dataset.colorMode=mode;root.classList.toggle('dark',mode==='dark'||(mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))})();</script>
 <link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/style.css">
@@ -86,6 +86,23 @@
 <span class="theme-list-count">本页 10 篇</span>
 </div>
 <section class="article-list anime-entries" aria-label="文章列表"><article class="article-card anime-story">
+<div class="story-ribbon">
+<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/troubleshooting/">网络排障</a></div>
+<span class="card-index" aria-hidden="true">
+</span>
+</div>
+<h2>
+<a href="https://aifanqiang.ink/posts/daily-2026-11-18-chatgpt-stuck-loading-check/">ChatGPT 一直转圈怎么办？从服务状态到浏览器这样排查</a></h2>
+<p class="card-summary">ChatGPT 一直转圈、页面空白或回复卡住，先别急着重装。小六用服务状态、新对话、无痕窗口和网络对照，帮你一步步缩小问题范围。</p>
+<div class="story-bottom">
+<div class="card-meta">
+<span>小六</span>
+<time datetime="2026-11-18T09:04:39&#43;08:00">2026-11-18</time>
+</div>
+<a class="read-more" href="https://aifanqiang.ink/posts/daily-2026-11-18-chatgpt-stuck-loading-check/" aria-label="阅读ChatGPT 一直转圈怎么办？从服务状态到浏览器这样排查">翻开手账 <span aria-hidden="true">↗</span>
+</a>
+</div>
+</article><article class="article-card anime-story">
 <div class="story-ribbon">
 <div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/troubleshooting/">网络排障</a></div>
 <span class="card-index" aria-hidden="true">
@@ -236,23 +253,6 @@
 <time datetime="2026-11-01T09:04:27&#43;08:00">2026-11-01</time>
 </div>
 <a class="read-more" href="https://aifanqiang.ink/posts/dns-error-codes/" aria-label="阅读DNS 报错怎么处理？“没有这个名字”和“没等到回复”不同">翻开手账 <span aria-hidden="true">↗</span>
-</a>
-</div>
-</article><article class="article-card anime-story">
-<div class="story-ribbon">
-<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/troubleshooting/">网络排障</a></div>
-<span class="card-index" aria-hidden="true">
-</span>
-</div>
-<h2>
-<a href="https://aifanqiang.ink/posts/websocket-handshake-disconnect/">网页能开，聊天却一直重连？检查 WebSocket 连接</a></h2>
-<p class="card-summary">实时聊天和通知可能使用单独的 WebSocket 连接。先看是否连接成功、是否收到过消息，再区分 403、异常断开和固定时长超时的问题。</p>
-<div class="story-bottom">
-<div class="card-meta">
-<span>小六</span>
-<time datetime="2026-10-30T09:02:47&#43;08:00">2026-10-30</time>
-</div>
-<a class="read-more" href="https://aifanqiang.ink/posts/websocket-handshake-disconnect/" aria-label="阅读网页能开，聊天却一直重连？检查 WebSocket 连接">翻开手账 <span aria-hidden="true">↗</span>
 </a>
 </div>
 </article></section>
