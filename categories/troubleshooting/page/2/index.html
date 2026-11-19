@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="网页打不开、连接超时、视频卡顿时，按现象逐项检查网络和代理设置。">
 <meta name="twitter:image" content="https://aifanqiang.ink/assets/media/f41d1803-8149-4ed3-b5c1-c30b4ef9432c.png">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/categories/troubleshooting/page/2/#collection","@type":"CollectionPage","description":"网页打不开、连接超时、视频卡顿时，按现象逐项检查网络和代理设置。","inLanguage":"zh-CN","mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","name":"网页能开，聊天却一直重连？检查 WebSocket 连接","position":1,"url":"https://aifanqiang.ink/posts/websocket-handshake-disconnect/"},{"@type":"ListItem","name":"网页报 502、503、504？先别急着换机场","position":2,"url":"https://aifanqiang.ink/posts/http-gateway-errors/"},{"@type":"ListItem","name":"网页里的文字一大段才出现，或写到一半断了？这样排查","position":3,"url":"https://aifanqiang.ink/posts/sse-buffering-stream-timeout/"},{"@type":"ListItem","name":"节点显示超时却还能用？先看它到底测了什么","position":4,"url":"https://aifanqiang.ink/posts/node-health-check-status/"},{"@type":"ListItem","name":"网页先白屏很久，随后又很快？先查等待发生在哪一步","position":5,"url":"https://aifanqiang.ink/posts/page-first-byte-timing/"},{"@type":"ListItem","name":"小文件能传，大文件报 413？先看上传大小限制","position":6,"url":"https://aifanqiang.ink/posts/upload-413-limits/"},{"@type":"ListItem","name":"下载断了还能接着下吗？看懂 206、200 和 416","position":7,"url":"https://aifanqiang.ink/posts/http-download-resume/"},{"@type":"ListItem","name":"代理报 407 是什么意思？先别拿网站密码去试","position":8,"url":"https://aifanqiang.ink/posts/proxy-authentication-407/"},{"@type":"ListItem","name":"酒店 Wi-Fi 登录页打不开？先认证网络，再开代理","position":9,"url":"https://aifanqiang.ink/posts/captive-portal-proxy/"},{"@type":"ListItem","name":"网站地址变成 198.18 开头，是中毒了吗？看懂 Fake-IP","position":10,"url":"https://aifanqiang.ink/posts/mihomo-fake-ip-address/"}]},"name":"网络排障 · 第 2 页","url":"https://aifanqiang.ink/categories/troubleshooting/page/2/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/categories/troubleshooting/","name":"网络排障","position":2},{"@type":"ListItem","item":"https://aifanqiang.ink/categories/troubleshooting/page/2/","name":"第 2 页","position":3}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://aifanqiang.ink/categories/troubleshooting/page/2/#collection","@type":"CollectionPage","description":"网页打不开、连接超时、视频卡顿时，按现象逐项检查网络和代理设置。","inLanguage":"zh-CN","mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","name":"DNS 报错怎么处理？“没有这个名字”和“没等到回复”不同","position":1,"url":"https://aifanqiang.ink/posts/dns-error-codes/"},{"@type":"ListItem","name":"网页能开，聊天却一直重连？检查 WebSocket 连接","position":2,"url":"https://aifanqiang.ink/posts/websocket-handshake-disconnect/"},{"@type":"ListItem","name":"网页报 502、503、504？先别急着换机场","position":3,"url":"https://aifanqiang.ink/posts/http-gateway-errors/"},{"@type":"ListItem","name":"网页里的文字一大段才出现，或写到一半断了？这样排查","position":4,"url":"https://aifanqiang.ink/posts/sse-buffering-stream-timeout/"},{"@type":"ListItem","name":"节点显示超时却还能用？先看它到底测了什么","position":5,"url":"https://aifanqiang.ink/posts/node-health-check-status/"},{"@type":"ListItem","name":"网页先白屏很久，随后又很快？先查等待发生在哪一步","position":6,"url":"https://aifanqiang.ink/posts/page-first-byte-timing/"},{"@type":"ListItem","name":"小文件能传，大文件报 413？先看上传大小限制","position":7,"url":"https://aifanqiang.ink/posts/upload-413-limits/"},{"@type":"ListItem","name":"下载断了还能接着下吗？看懂 206、200 和 416","position":8,"url":"https://aifanqiang.ink/posts/http-download-resume/"},{"@type":"ListItem","name":"代理报 407 是什么意思？先别拿网站密码去试","position":9,"url":"https://aifanqiang.ink/posts/proxy-authentication-407/"},{"@type":"ListItem","name":"酒店 Wi-Fi 登录页打不开？先认证网络，再开代理","position":10,"url":"https://aifanqiang.ink/posts/captive-portal-proxy/"}]},"name":"网络排障 · 第 2 页","url":"https://aifanqiang.ink/categories/troubleshooting/page/2/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://aifanqiang.ink/","name":"小六有点六","position":1},{"@type":"ListItem","item":"https://aifanqiang.ink/categories/troubleshooting/","name":"网络排障","position":2},{"@type":"ListItem","item":"https://aifanqiang.ink/categories/troubleshooting/page/2/","name":"第 2 页","position":3}]}]}</script>
 
 <script>(()=>{let mode='system';try{const saved=localStorage.getItem('reader-theme');if(['system','light','dark'].includes(saved))mode=saved}catch{}const root=document.documentElement;root.dataset.colorMode=mode;root.classList.toggle('dark',mode==='dark'||(mode==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))})();</script>
 <link rel="stylesheet" href="https://aifanqiang.ink/assets/theme/style.css">
@@ -86,6 +86,23 @@
 <span class="theme-list-count">本页 10 篇</span>
 </div>
 <section class="article-list anime-entries" aria-label="文章列表"><article class="article-card anime-story">
+<div class="story-ribbon">
+<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/troubleshooting/">网络排障</a></div>
+<span class="card-index" aria-hidden="true">
+</span>
+</div>
+<h2>
+<a href="https://aifanqiang.ink/posts/dns-error-codes/">DNS 报错怎么处理？“没有这个名字”和“没等到回复”不同</a></h2>
+<p class="card-summary">网页找不到地址时，先看 NXDOMAIN、SERVFAIL 还是超时。分清查询对象、地址类型和解析来源，避免把没有 IPv6 记录当成整个网站失效。</p>
+<div class="story-bottom">
+<div class="card-meta">
+<span>小六</span>
+<time datetime="2026-11-01T09:04:27&#43;08:00">2026-11-01</time>
+</div>
+<a class="read-more" href="https://aifanqiang.ink/posts/dns-error-codes/" aria-label="阅读DNS 报错怎么处理？“没有这个名字”和“没等到回复”不同">翻开手账 <span aria-hidden="true">↗</span>
+</a>
+</div>
+</article><article class="article-card anime-story">
 <div class="story-ribbon">
 <div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/troubleshooting/">网络排障</a></div>
 <span class="card-index" aria-hidden="true">
@@ -236,23 +253,6 @@
 <time datetime="2026-10-07T09:12:23&#43;08:00">2026-10-07</time>
 </div>
 <a class="read-more" href="https://aifanqiang.ink/posts/captive-portal-proxy/" aria-label="阅读酒店 Wi-Fi 登录页打不开？先认证网络，再开代理">翻开手账 <span aria-hidden="true">↗</span>
-</a>
-</div>
-</article><article class="article-card anime-story">
-<div class="story-ribbon">
-<div class="entry-categories"><a class="card-category" href="https://aifanqiang.ink/categories/troubleshooting/">网络排障</a></div>
-<span class="card-index" aria-hidden="true">
-</span>
-</div>
-<h2>
-<a href="https://aifanqiang.ink/posts/mihomo-fake-ip-address/">网站地址变成 198.18 开头，是中毒了吗？看懂 Fake-IP</a></h2>
-<p class="card-summary">开客户端后查到 198.18 开头的地址，可能只是 Fake-IP 的正常映射。用“号码牌”的例子说明原理，再检查解析与实际连接是否进入同一客户端。</p>
-<div class="story-bottom">
-<div class="card-meta">
-<span>小六</span>
-<time datetime="2026-10-07T09:12:15&#43;08:00">2026-10-07</time>
-</div>
-<a class="read-more" href="https://aifanqiang.ink/posts/mihomo-fake-ip-address/" aria-label="阅读网站地址变成 198.18 开头，是中毒了吗？看懂 Fake-IP">翻开手账 <span aria-hidden="true">↗</span>
 </a>
 </div>
 </article></section>
